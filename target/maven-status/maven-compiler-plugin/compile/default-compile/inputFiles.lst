@@ -1,9 +1,12 @@
-D:\zip~\src\main\java\isamrs\rest\domain\RestaurantManager.java
-D:\zip~\src\main\java\isamrs\rest\Application.java
-D:\zip~\src\main\java\isamrs\rest\service\SystemManagerServiceImpl.java
-D:\zip~\src\main\java\isamrs\rest\repository\SystemManagerRepository.java
-D:\zip~\src\main\java\isamrs\rest\service\SystemManagerService.java
-D:\zip~\src\main\java\isamrs\rest\domain\Provider.java
-D:\zip~\src\main\java\isamrs\rest\controller\SystemManagerController.java
-D:\zip~\src\main\java\isamrs\rest\domain\SystemManager.java
-D:\zip~\src\main\java\isamrs\rest\domain\Restaurant.java
+D:\Faks\Faks\06. semestar\Internet softverske arhitekture\Tim16\IsaMrsTim16\src\main\java\isamrs\rest\domain\SystemManager.java
+D:\Faks\Faks\06. semestar\Internet softverske arhitekture\Tim16\IsaMrsTim16\src\main\java\isamrs\rest\domain\Restaurant.java
+D:\Faks\Faks\06. semestar\Internet softverske arhitekture\Tim16\IsaMrsTim16\src\main\java\isamrs\rest\domain\Drink.java
+D:\Faks\Faks\06. semestar\Internet softverske arhitekture\Tim16\IsaMrsTim16\src\main\java\isamrs\rest\service\SystemManagerServiceImpl.java
+D:\Faks\Faks\06. semestar\Internet softverske arhitekture\Tim16\IsaMrsTim16\src\main\java\isamrs\rest\domain\Meal.java
+D:\Faks\Faks\06. semestar\Internet softverske arhitekture\Tim16\IsaMrsTim16\src\main\java\isamrs\rest\service\SystemManagerService.java
+D:\Faks\Faks\06. semestar\Internet softverske arhitekture\Tim16\IsaMrsTim16\src\main\java\isamrs\rest\repository\SystemManagerRepository.java
+D:\Faks\Faks\06. semestar\Internet softverske arhitekture\Tim16\IsaMrsTim16\src\main\java\isamrs\rest\Application.java
+D:\Faks\Faks\06. semestar\Internet softverske arhitekture\Tim16\IsaMrsTim16\src\main\java\isamrs\rest\domain\Seating.java
+D:\Faks\Faks\06. semestar\Internet softverske arhitekture\Tim16\IsaMrsTim16\src\main\java\isamrs\rest\controller\SystemManagerController.java
+D:\Faks\Faks\06. semestar\Internet softverske arhitekture\Tim16\IsaMrsTim16\src\main\java\isamrs\rest\domain\Provider.java
+D:\Faks\Faks\06. semestar\Internet softverske arhitekture\Tim16\IsaMrsTim16\src\main\java\isamrs\rest\domain\RestaurantManager.java

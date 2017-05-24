@@ -24,17 +24,17 @@ import isamrs.rest.domain.Restaurant;
 public class SystemManagerController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private SystemManagerService systemManagerService;
-	
+
 	@RequestMapping(
-			value = "/add/systemmanager",
+			value = "/systemmanager/post",
 			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SystemManager> addSystemManager(@RequestBody SystemManager systemManager) throws Exception{
-		logger.info("> createGreeting");
+		logger.info(">>> Adding system manager");
 		SystemManager retVal = this.systemManagerService.addSystemManager(systemManager);
 		HttpStatus status;
 		if(retVal != null){
@@ -45,17 +45,13 @@ public class SystemManagerController {
 			//PROVERI KOJI STATUS IDE KAD JE DODAVANJE NEUSPESNO
 			status = HttpStatus.OK; 
 		}
-		logger.info("< createGreeting");
+		logger.info("<<< Adding system manager");
 		return new ResponseEntity<SystemManager>(retVal, status);
 		
 	}
-	
-	@RequestMapping(
-			value = "/sysmanager/{email}",
-			method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE
-			)
-	public ResponseEntity<SystemManager> getSystemManager(@PathVariable("email") String email) throws Exception{
+
+	@RequestMapping(value = "/sysmanager/get/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<SystemManager> getSystemManager(@PathVariable("email") String email) throws Exception {
 		SystemManager retVal = this.systemManagerService.getSystemManager(email);
 		return new ResponseEntity<SystemManager>(retVal, HttpStatus.OK);
 	}

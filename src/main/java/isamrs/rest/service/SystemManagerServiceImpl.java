@@ -1,5 +1,7 @@
 package isamrs.rest.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,14 +16,26 @@ import isamrs.rest.domain.SystemManager;
 import isamrs.rest.repository.SystemManagerRepository;
 
 @Service
-public class SystemManagerServiceImpl implements SystemManagerService{
+public class SystemManagerServiceImpl implements SystemManagerService {
 
 	@Autowired
 	private SystemManagerRepository systemManagerRepository;
-	
+
 	@Override
 	public SystemManager addSystemManager(SystemManager sysm) {
-		return this.systemManagerRepository.save(sysm);
+		List<SystemManager> managers = this.systemManagerRepository.findAll(null).getContent();
+		boolean found = false;
+		for (int i = 0; i < managers.size(); i++) {
+			if (managers.get(i).getEmail().compareTo(sysm.getEmail())==0) {
+				found = true;
+			}
+		}
+		if(!found){
+			return this.systemManagerRepository.save(sysm);
+		}else{
+			return null;
+		}
+			
 	}
 
 	@Override
@@ -41,6 +55,4 @@ public class SystemManagerServiceImpl implements SystemManagerService{
 		return this.systemManagerRepository.findByEmail(name);
 	}
 
-	
-	
 }
