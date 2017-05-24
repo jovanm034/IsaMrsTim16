@@ -29,27 +29,77 @@ public class SystemManagerController {
 	private SystemManagerService systemManagerService;
 
 	@RequestMapping(
-			value = "/systemmanager/post",
+			value = "/systemManager/addSystemManager",
 			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SystemManager> addSystemManager(@RequestBody SystemManager systemManager) throws Exception{
 		logger.info(">>> Adding system manager");
+		
 		SystemManager retVal = this.systemManagerService.addSystemManager(systemManager);
-		HttpStatus status;
+		HttpStatus status = null;
 		if(retVal != null){
-			logger.info("System manager added!");
+			logger.info("==> System manager added!");
 			status = HttpStatus.CREATED;
 		}else{
-			logger.info("System manager not added!");
+			logger.info("==> System manager not added!");
 			//PROVERI KOJI STATUS IDE KAD JE DODAVANJE NEUSPESNO
 			status = HttpStatus.OK; 
 		}
+		
 		logger.info("<<< Adding system manager");
 		return new ResponseEntity<SystemManager>(retVal, status);
 		
 	}
-
+	
+	@RequestMapping(
+			value = "/systemManager/addRestaurantManager",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<RestaurantManager> addRestaurantManager(@RequestBody RestaurantManager restaurantManager) throws Exception{
+		logger.info(">>> Adding restaurant manager");
+		RestaurantManager retVal = null;
+		HttpStatus status = null;
+		logger.info(">>> Adding restaurant manager");
+		return new ResponseEntity<RestaurantManager>(retVal, status);
+	}
+	
+	@RequestMapping(
+			value = "/systemManager/addRestaurant",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Restaurant> addRestaurant(@RequestBody Restaurant restaurant) throws Exception{
+		logger.info(">>> Adding restaurant");
+		Restaurant retVal = null;
+		HttpStatus status = null;
+		logger.info(">>> Adding restaurant");
+		return new ResponseEntity<Restaurant>(retVal, status);
+	}
+	
+	@RequestMapping(
+			value = "/systemManager/login",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<SystemManager> login(@RequestBody SystemManager sysm) throws Exception{
+		logger.info(">>> System manager login");
+		SystemManager retVal = this.systemManagerService.login(sysm);
+		HttpStatus status = null;
+		if(retVal != null){
+			logger.info("==> Login successfull");
+			status = HttpStatus.OK;
+		}else{
+			logger.info("==> Login faild");
+			status = HttpStatus.OK;
+		}
+		logger.info(">>> System manager login");
+		return new ResponseEntity<SystemManager>(retVal, status);
+	}
+	
+	
+	
 	@RequestMapping(value = "/sysmanager/get/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SystemManager> getSystemManager(@PathVariable("email") String email) throws Exception {
 		SystemManager retVal = this.systemManagerService.getSystemManager(email);

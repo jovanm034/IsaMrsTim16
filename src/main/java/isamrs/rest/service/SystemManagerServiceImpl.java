@@ -55,4 +55,9 @@ public class SystemManagerServiceImpl implements SystemManagerService {
 		return this.systemManagerRepository.findByEmail(name);
 	}
 
+	@Override
+	public SystemManager login(SystemManager sysm) throws Exception {
+		return this.systemManagerRepository.findByEmailAndPassword(sysm.getEmail(), sysm.getPassword());
+	}
+
 }
