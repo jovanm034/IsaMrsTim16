@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="webApp">
+<head>
+	<meta charset="UTF-8">
+	<!-- SCROLLS -->
+	<!-- load bootstrap and fontawesome via CDN -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+
+	<!-- SPELLS -->
+	<!-- load angular and angular route via CDN -->
+ 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>	
+
+ 	<script src="js/script.js"></script>
+ 	<style>
+ 		.jumbotron{
+ 			background-color:#2E2D88;
+ 			color:white;
+ 		}
+ 	</style>
+</head>
+<body data-ng-controller="loginController">
+	<!-- HEADER AND NAVBAR -->
+	<div class = "page-header text-center">
+		<h1>GDE DA JEDEM?</h1>
+	</div>
+	<div class="container text-center">
+		<!-- MAIN CONTENT AND INJECTED VIEWS -->
+			<!-- angular templating -->
+	    	<!-- this is where content will be injected -->
+	    	<div data-ng-view></div>
+	
+	</div>
+	
+	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+	crossorigin="anonymous"></script>
+
+</body>
+</html>

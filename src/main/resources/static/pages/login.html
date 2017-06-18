@@ -1,0 +1,59 @@
+
+
+Email
+<br>
+<input type="email" ng-model="loginEmail" style="width:200px" required>
+<span ng-show="loginEmail.$invalid">The email is required.</span>
+<br>
+
+Password:
+<br>
+<input type="password" ng-model="loginPassword" style="width:200px" required>
+<br>
+
+Roll:
+<br>
+<select name="cb_roll" ng-model="loginRoll" style="width:200px">
+	<option value="1" selected="selected">Guest</option>
+	<option value="2">Waiter</option>
+	<option value="3">Cook</option>
+	<option value="4">Bartender</option>
+	<option value="5">Provider</option>
+	<option value="6">Restaurant manager</option>
+	<option value="7">System manager</option>
+	<option value="8">User</option>
+</select>
+<br>
+<br>
+<button class = "btn btn-primary" ng-click="onLoginClick()" style="width:200px">Log in</button>
+<br>
+
+
+
+
+
+
+<h2>Register</h2>
+First Name:
+<br>
+<input type="text" data-ng-model="firstName" style="width:200px" required>
+<br>
+Last Name:
+<br>
+<input type="text" data-ng-model="lastName" style="width:200px" required>
+<br>
+Email:
+<br>
+<input type="text" data-ng-model="registerEmail" style="width:200px" required>
+<br>
+Password:
+<br>
+<input type="password" data-ng-model="password" style="width:200px" required>
+<br>
+Confirm Password:
+<br>
+<input type="password" data-ng-model="passwordConfirm" style="width:200px" required>
+<br>
+<br>
+<button class = "btn btn-primary" data-ng-click="onRegisterClick()" style="width:200px">Register</button>
+
