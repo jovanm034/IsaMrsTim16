@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,96 +30,56 @@ public class SystemManagerController {
 	private SystemManagerService systemManagerService;
 
 	@RequestMapping(
-			value = "/systemManager/addSystemManager",
-			method = RequestMethod.POST,
-			consumes = MediaType.APPLICATION_JSON_VALUE,
+			value = "/api/systemManagers",
+			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SystemManager> addSystemManager(@RequestBody SystemManager systemManager) throws Exception{
-		logger.info(">>> Adding system manager");
-		
-		SystemManager retVal = this.systemManagerService.addSystemManager(systemManager);
-		HttpStatus status = null;
-		if(retVal != null){
-			logger.info("==> System manager added!");
-			status = HttpStatus.CREATED;
-		}else{
-			logger.info("==> System manager not added!");
-			//PROVERI KOJI STATUS IDE KAD JE DODAVANJE NEUSPESNO
-			status = HttpStatus.OK; 
-		}
-		
-		logger.info("<<< Adding system manager");
-		return new ResponseEntity<SystemManager>(retVal, status);
-		
+	public ResponseEntity<Page<SystemManager>> getSystemManagers() throws Exception{
+		logger.info(">>> Getting system managers");
+		Page<SystemManager> retVal = this.systemManagerService.findAll();
+		HttpStatus status = HttpStatus.OK; 
+		logger.info("<<< Getting system managers");
+		return new ResponseEntity<Page<SystemManager>>(retVal, status);
 	}
 	
 	@RequestMapping(
-			value = "/systemManager/addRestaurantManager",
-			method = RequestMethod.POST,
-			consumes = MediaType.APPLICATION_JSON_VALUE,
+			value = "/api/systemManagers/{id}",
+			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RestaurantManager> addRestaurantManager(@RequestBody RestaurantManager restaurantManager) throws Exception{
-		logger.info(">>> Adding restaurant manager");
-		RestaurantManager retVal = this.systemManagerService.addRestaurantManager(restaurantManager);
+	public ResponseEntity<SystemManager> getSystemManager(@PathVariable("id") Long id) throws Exception{
+		logger.info(">>> Getting system manager");
+		SystemManager retVal = this.systemManagerService.findOne(id);
 		HttpStatus status = null;
 		if(retVal != null){
-			logger.info("==> Restaurant manager added!");
-			status = HttpStatus.CREATED;
-		}else{
-			logger.info("==> Restaurant manager not added!");
-			//PROVERI KOJI STATUS IDE KAD JE DODAVANJE NEUSPESNO
-			status = HttpStatus.OK; 
-		}
-		logger.info(">>> Adding restaurant manager");
-		return new ResponseEntity<RestaurantManager>(retVal, status);
-	}
-	
-	@RequestMapping(
-			value = "/systemManager/addRestaurant",
-			method = RequestMethod.POST,
-			consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Restaurant> addRestaurant(@RequestBody Restaurant restaurant) throws Exception{
-		logger.info(">>> Adding restaurant");
-		Restaurant retVal = this.systemManagerService.addRestaurant(restaurant);
-		HttpStatus status = null;
-		if(retVal != null){
-			logger.info("==> Restaurant added!");
-			status = HttpStatus.CREATED;
-		}else{
-			logger.info("==> Restaurant not added!");
-			//PROVERI KOJI STATUS IDE KAD JE DODAVANJE NEUSPESNO
-			status = HttpStatus.OK; 
-		}
-		logger.info(">>> Adding restaurant");
-		return new ResponseEntity<Restaurant>(retVal, status);
-	}
-	
-	@RequestMapping(
-			value = "/systemManager/login",
-			method = RequestMethod.POST,
-			consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SystemManager> login(@RequestBody SystemManager sysm) throws Exception{
-		logger.info(">>> System manager login");
-		SystemManager retVal = this.systemManagerService.login(sysm);
-		HttpStatus status = null;
-		if(retVal != null){
-			logger.info("==> Login successfull");
+			logger.info("==> System manager found!");
 			status = HttpStatus.OK;
 		}else{
-			logger.info("==> Login faild");
-			status = HttpStatus.OK;
+			logger.info("==> System manager not found!");
+			logger.info(">>> Getting system manager");
+			return new ResponseEntity<SystemManager>(HttpStatus.NOT_FOUND);
 		}
-		logger.info(">>> System manager login");
+		logger.info(">>> Getting system manager");
 		return new ResponseEntity<SystemManager>(retVal, status);
 	}
 	
-	
-	
-	@RequestMapping(value = "/sysmanager/get/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SystemManager> getSystemManager(@PathVariable("email") String email) throws Exception {
-		SystemManager retVal = this.systemManagerService.getSystemManager(email);
-		return new ResponseEntity<SystemManager>(retVal, HttpStatus.OK);
+	@RequestMapping(
+			value = "/api/systemManagers",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<SystemManager> createSystemManager(@RequestBody SystemManager sysm) throws Exception{
+		logger.info(">>> Creating system manager");
+		SystemManager retVal = this.systemManagerService.create(sysm);
+		HttpStatus status = null;
+		if(retVal != null){
+			logger.info("==> System manager created!");
+			status = HttpStatus.CREATED;
+		}else{
+			logger.info("==> System manager not created!");
+			//PROVERI KOJI STATUS IDE KAD JE DODAVANJE NEUSPESNO
+			status = HttpStatus.OK; 
+		}
+		logger.info(">>> Creating system manager");
+		return new ResponseEntity<SystemManager>(retVal, status);
 	}
+	
 }
