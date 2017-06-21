@@ -8,7 +8,6 @@ import isamrs.rest.domain.RestaurantManager;
 public interface RestaurantManagerRepository extends Repository<RestaurantManager, Long>{
 	
 	public Page<RestaurantManager> findAll(Pageable pageable);
-	public RestaurantManager findByEmail(String email);
-	public RestaurantManager findByEmailAndPassword(String email, String password);
+	public RestaurantManager findById(Long id);
 	public RestaurantManager save(RestaurantManager rm);
 }

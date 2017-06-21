@@ -1,6 +1,5 @@
 package isamrs.rest.controller;
 
-import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import isamrs.rest.service.SystemManagerService;
 
 import isamrs.rest.domain.SystemManager;
-import isamrs.rest.domain.RestaurantManager;
-import isamrs.rest.domain.Restaurant;
 
 @RestController
 public class SystemManagerController {
