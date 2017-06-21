@@ -11,8 +11,8 @@ public interface RestaurantRepository extends Repository<Restaurant, Long>{
 
 	public Page<Restaurant> findAll(Pageable pageable);
 	public Restaurant findByName(String name);
-	public Restaurant save(Restaurant r);
-	public Restaurant update(String name, Restaurant r);
-	public void delete(String name);
+	//public Restaurant save(Restaurant r);
+	//public Restaurant update(String name, Restaurant r);
+	//public void delete(String name);
 	
 }
