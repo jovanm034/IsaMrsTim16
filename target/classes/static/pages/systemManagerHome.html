@@ -1,4 +1,16 @@
-<button ng-click="onRegisterRestaurantClick()" style="width:200px">Register restaurant</button>
-<button ng-click="onRegisterRestaurantManagerClick()" style="width:200px">Register restaurant manager</button>
-<button ng-click="onRegisterSystemManagerClick()" style="width:200px" ng-hide="regSysMBtn">Register system manager</button>
-<button ng-click="onLogoutClick()" style="width:200px">Log out</button>
+<form name="myForm">
+	<div class="form-group">
+		<label for="">Registruj:</label>
+		<br>
+		<button class="btn btn-primary" ng-click="onRegisterRestaurantClick()" style="width:200px">Restoran</button>
+		<br>
+		<br>
+		<button class="btn btn-primary" ng-click="onRegisterRestaurantManagerClick()" style="width:200px">Menadzera restorana</button>
+		<br>
+		<br>
+		<button class="btn btn-primary" ng-click="onRegisterSystemManagerClick()" style="width:200px" ng-hide="regSysMBtn">Menadzera sistema</button>
+		<br>
+		<br>
+		<button class="btn btn-primary" ng-click="onLogoutClick()" style="width:200px">Odjavi se</button>
+	</div>
+</form>

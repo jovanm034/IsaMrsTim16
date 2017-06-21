@@ -72,7 +72,28 @@
     		}
     		//System manager
     		if($scope.loginRoll == "7"){
-    			var user = {
+    			$http.get('api/systemManagers').then(
+    					function(response){
+    						var users = response.data.content;
+    						var found = 0;
+    						for(i = 0; i<users.length; i++){
+    							if(users[i].email == $scope.loginEmail){
+    								if(users[i].password == $scope.loginPassword){
+    									found = 1;
+    									$rootScope.loggedUser = users[i];
+    								}
+    							}
+    						}
+    						if(found == 1){
+    							$location.path('/systemManager/home');
+    						}
+    					},
+    					function(response){
+    						//Nikada nije neuspesno
+    					}
+    			
+    			)
+    			/*var user = {
         			firstname:"",
         			lastname:"",
         			email:$scope.loginEmail,
@@ -91,7 +112,7 @@
     					
     					console.log("LOGIN FAILD");
     				}
-    			)
+    			)*/
     		}
     		//User
     		if($scope.loginRoll == "8"){
