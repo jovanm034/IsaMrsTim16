@@ -33,11 +33,19 @@ public class Restaurant implements Serializable{
 		return this.type;
 	}
 	
+	public Long getId(){
+		return this.id;
+	}
+	
 	public void setName(String name){
 		this.name = name;
 	}
 	
 	public void setType(String type){
 		this.type = type;
+	}
+	
+	public void setId(Long id){
+		this.id = id;
 	}
 }
