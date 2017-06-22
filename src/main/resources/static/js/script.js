@@ -312,28 +312,26 @@
     	
     });
     
-    webApp.controller("UserFriendsController", [ '$scope',  function($scope){
-
+    webApp.controller("UserFriendsController", [ '$scope', '$http', function($scope, $http){
+    	
+    	$http.get('/api/users').success(function(data) {
+            $scope.users = data.content; // get data from json
+            $scope.userStack = [];
+            
+              angular.forEach($scope.users, function(item){
+                   console.log(item.firstName);
+                   $scope.userStack = item.firstName;
+                
+               })
+        });
+    	
         $scope.removeUser = function(user){
             var userToRemove = $scope.users.indexOf(user);
              $scope.users.splice(userToRemove,1);
 
         }
 
-        $scope.users = [
-            {
-                name : "Petar",
-                lastName : "Debil"
-            },
-            {
-                name : "Marko",
-                lastName : "Glavonja"
-            },
-            {
-                name : "Zika",
-                lastName : "Smrad"
-            }
-        ];
+        
 
     }]);
     
