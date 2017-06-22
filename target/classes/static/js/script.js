@@ -59,6 +59,25 @@
     	$scope.onLoginClick = function(){
     		//Guest
     		if($scope.loginRoll == "1") {
+    			var user = {
+    	    			firstname:"",
+    	    			lastname:"",
+    	    			email:$scope.loginEmail,
+    	    			password:$scope.loginPassword
+    	        	}
+    				$http.post('/user/login', user).then(
+    					function(response){
+    						//Uspesno
+    						$rootScope.loggedUser = response.data;
+    						console.log("User " + response.data.firstname + " " + response.data.lastname + " logged in!");
+    						$location.path('/user/home');
+    					},
+    					function(response){
+    						//Neuspesno
+    						
+    						console.log("LOGIN FAILED");
+    					}
+    				)
     			
     		}
     		//Waiter
@@ -125,55 +144,12 @@
     				}
     			)*/
     		}
-    		//User
-    		if($scope.loginRoll == "8"){
-    			var user = {
-    	    			firstname:"",
-    	    			lastname:"",
-    	    			email:$scope.loginEmail,
-    	    			password:$scope.loginPassword
-    	        	}
-    				$http.post('/user/login', user).then(
-    					function(response){
-    						//Uspesno
-    						$rootScope.loggedUser = response.data;
-    						console.log("User " + response.data.firstname + " " + response.data.lastname + " logged in!");
-    						$location.path('/user/home');
-    					},
-    					function(response){
-    						//Neuspesno
-    						
-    						console.log("LOGIN FAILED");
-    					}
-    				)
-    		}
     		
     		
     		
     		
     	};
-    	$scope.onRegisterClick = function(){
-    		var user = {
-    			firstName:$scope.firstName,
-    			lastName:$scope.lastName,
-    			email:$scope.registerEmail,
-    			password:$scope.password,
-    			passwordConfirm:$scope.passwordConfirm
-    		}
-    		console.log(user);
-    		$http.post('/user/register', user).then(
-    			function(response){
-    				//Uspesno
-    				
-    				console.log("User " + response.data.firstName + " " + response.data.lastName + " registered!");
-    				$location.path('/user/home');
-    			},
-    			function(response){
-    				//Neuspesno
-    				console.log("REGISTRATION FAILED");
-    			}
-    		)
-    	};
+    	
     });
     
     webApp.controller('systemManager_regSysMan_Controller', function($scope, $http, $location, $rootScope){
@@ -360,6 +336,32 @@
         ];
 
     }]);
+    
+    webApp.controller('RegisterController', function($scope, $http, $location, $rootScope) {
+    	
+    	$scope.onRegisterClick = function(){
+    		var user = {
+    			firstName:$scope.ime,
+    			lastName:$scope.prezime,
+    			email:$scope.email,
+    			password:$scope.password,
+    			passwordConfirm:$scope.password2
+    		}
+    		console.log(user);
+    		$http.post('/api/users', user).then(
+    			function(response){
+    				//Uspesno
+    				
+    				console.log("User " + response.data.firstName + " " + response.data.lastName + " registered!");
+    				$location.path('/');
+    			},
+    			function(response){
+    				//Neuspesno
+    				console.log("REGISTRATION FAILED");
+    			}
+    		)
+    	};
+    });
    
     
 
