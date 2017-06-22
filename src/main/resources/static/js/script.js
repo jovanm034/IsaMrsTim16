@@ -59,6 +59,21 @@
             	controller	: 'provider_firstLogin_Controller'
             })
             
+            .when('/provider/update', { //TODO
+            	templateUrl : 'pages/providerUpdate.html',
+            	controller	: 'provider_update_Controller'
+            })
+            
+            .when('/provider/offers', { //TODO
+            	templateUrl : 'pages/providerOffers.html',
+            	controller	: 'provider_offers_Controller'
+            })
+            
+            .when('/provider/orders', { //TODO
+            	templateUrl : 'pages/providerOrders.html',
+            	controller	: 'provider_orders_Controller'
+            })
+            
             .otherwise({
             	redirectTo:'/'
             });
@@ -315,7 +330,18 @@
     });
     
     webApp.controller('provider_Controller', function($scope, $http, $location, $rootScope) {
-    	
+    	$scope.onBtn1 = function(){
+    		$location.path('/provider/update');
+    	}
+    	$scope.onBtn2 = function(){
+    		$location.path('/provider/offers');
+    	}
+    	$scope.onBtn3 = function(){
+    		$location.path('/provider/orders');
+    	}
+    	$scope.onBtn4 = function(){
+    		$location.path('/');
+    	}
     	
     });
     
@@ -327,6 +353,23 @@
         		function(response){
         			$rootScope.loggedUser = response.data;
         			console.log($rootScope.loggedUser);
+        			$location.path('/provider/home');
+        		},
+        		function(response){}
+        	)
+    	}
+    	
+    	
+    });
+    
+    webApp.controller('provider_update_Controller', function($scope, $http, $location, $rootScope) {
+    	$scope.onBtn1 = function(){
+    		$rootScope.loggedUser.firstname = $scope.updatedFName;
+    		$rootScope.loggedUser.lastname = $scope.updatedLName;
+        	$rootScope.loggedUser.password = $scope.updatedPassword;
+        	$http.put('/api/providers/'+$rootScope.loggedUser.id, $rootScope.loggedUser).then(
+        		function(response){
+        			$rootScope.loggedUser = response.data;
         			$location.path('/provider/home');
         		},
         		function(response){}
