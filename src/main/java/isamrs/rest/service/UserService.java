@@ -3,8 +3,10 @@ package isamrs.rest.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import isamrs.rest.domain.SystemManager;
 import isamrs.rest.domain.User;
 import isamrs.rest.repository.UserRepository;
 
@@ -41,9 +43,18 @@ public class UserService {
 		
 	}
 
-	public List<User> getAll() {
-		return userRepository.findAll();
+	public Page<User> findAll() {
+		return userRepository.findAll(null);
 		
+	}
+	
+	public User findOne(Long id) {
+		return userRepository.findById(id);
+		
+	}
+
+	public User create(User user) {
+		return userRepository.save(user);
 	}
 
 }
