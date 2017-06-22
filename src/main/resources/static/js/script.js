@@ -22,6 +22,17 @@
                 controller  : 'userController'
                 
             })
+            
+            .when('/user/register', {
+            	templateUrl : 'pages/registerUser.html'
+                
+            })
+            
+            .when('/user/friends', {
+            	templateUrl : 'pages/userFriends.html',
+                controller  : 'UserFriendsController'
+                
+            })
 
             .when('/systemManager/registerRestaurant', {
                 templateUrl : 'pages/registerRestaurant.html',
@@ -231,6 +242,31 @@
     	
     	
     });
+    
+    webApp.controller("UserFriendsController", [ '$scope',  function($scope){
+
+        $scope.removeUser = function(user){
+            var userToRemove = $scope.users.indexOf(user);
+             $scope.users.splice(userToRemove,1);
+
+        }
+
+        $scope.users = [
+            {
+                name : "Petar",
+                lastName : "Debil"
+            },
+            {
+                name : "Marko",
+                lastName : "Glavonja"
+            },
+            {
+                name : "Zika",
+                lastName : "Smrad"
+            }
+        ];
+
+    }]);
    
     
 

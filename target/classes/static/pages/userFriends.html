@@ -1,0 +1,27 @@
+<div  ng-controller = "UserFriendsController">
+
+
+	<div class = "content2">
+	    <button ng-click = "order = 'name' ">Sortiraj po imenu</button>
+	    <button ng-click = "order = 'lastName' ">Sortiraj po prezimenu</button>
+	    <input type="text" style = "color:black" ng-model = "search">
+	    <ul>
+	        <li ng-repeat = "user in users | orderBy : order | filter:search">
+	            <h3>{{user.name}} - {{user.lastName}}</h3>
+	            <div class = "ctrl">
+	            <button class = "btn btn-primary">Dodaj</button>
+	            <div class="remove" ng-click = "removeUser(user)">X</div>
+	            </div>
+	        </li>
+	    </ul>
+	</div>
+
+	
+</div>
+
+
+
+        
+        
+
+
