@@ -1,5 +1,14 @@
-Name:
-<input type="text" ng-model="regRes_name" style="width:200px">
-Type:
-<input type="text" ng-model="regRes_type" style="width:200px">
-<button ng-click="regRes_btnClick()" style="width:200px">Register</button>
+<form name="myForm">
+	<div class="form-group">
+		<label for="">Naziv:</label>
+		<br>
+		<input class = "form-control" type="text" ng-model="regRes_name" style="width:200px">
+		<br>
+		<label for="">Tip:</label>
+		<br>
+		<input class = "form-control" type="text" ng-model="regRes_type" style="width:200px">
+		<br>
+		<br>
+		<button class="btn btn-primary" ng-click="regRes_btnClick()" style="width:200px">Registruj</button>
+	</div>
+</form>

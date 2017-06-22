@@ -22,6 +22,17 @@
                 controller  : 'userController'
                 
             })
+            
+            .when('/user/register', {
+            	templateUrl : 'pages/registerUser.html'
+                
+            })
+            
+            .when('/user/friends', {
+            	templateUrl : 'pages/userFriends.html',
+                controller  : 'UserFriendsController'
+                
+            })
 
             .when('/systemManager/registerRestaurant', {
                 templateUrl : 'pages/registerRestaurant.html',
@@ -30,7 +41,7 @@
             
             .when('/systemManager/registerRestaurantManager', {
                 templateUrl : 'pages/registerRestaurantManager.html',
-                controller  : 'systemManagerController'
+                controller  : 'systemManager_regResMan_Controller'
             })
             
             .when('/systemManager/registerSystemManager', {
@@ -48,6 +59,25 @@
     	$scope.onLoginClick = function(){
     		//Guest
     		if($scope.loginRoll == "1") {
+    			var user = {
+    	    			firstname:"",
+    	    			lastname:"",
+    	    			email:$scope.loginEmail,
+    	    			password:$scope.loginPassword
+    	        	}
+    				$http.post('/user/login', user).then(
+    					function(response){
+    						//Uspesno
+    						$rootScope.loggedUser = response.data;
+    						console.log("User " + response.data.firstname + " " + response.data.lastname + " logged in!");
+    						$location.path('/user/home');
+    					},
+    					function(response){
+    						//Neuspesno
+    						
+    						console.log("LOGIN FAILED");
+    					}
+    				)
     			
     		}
     		//Waiter
@@ -72,7 +102,28 @@
     		}
     		//System manager
     		if($scope.loginRoll == "7"){
-    			var user = {
+    			$http.get('api/systemManagers').then(
+    					function(response){
+    						var users = response.data.content;
+    						var found = 0;
+    						for(i = 0; i<users.length; i++){
+    							if(users[i].email == $scope.loginEmail){
+    								if(users[i].password == $scope.loginPassword){
+    									found = 1;
+    									$rootScope.loggedUser = users[i];
+    								}
+    							}
+    						}
+    						if(found == 1){
+    							$location.path('/systemManager/home');
+    						}
+    					},
+    					function(response){
+    						//Nikada nije neuspesno
+    					}
+    			
+    			)
+    			/*var user = {
         			firstname:"",
         			lastname:"",
         			email:$scope.loginEmail,
@@ -91,94 +142,144 @@
     					
     					console.log("LOGIN FAILD");
     				}
-    			)
-    		}
-    		//User
-    		if($scope.loginRoll == "8"){
-    			var user = {
-    	    			firstname:"",
-    	    			lastname:"",
-    	    			email:$scope.loginEmail,
-    	    			password:$scope.loginPassword
-    	        	}
-    				$http.post('/user/login', user).then(
-    					function(response){
-    						//Uspesno
-    						$rootScope.loggedUser = response.data;
-    						console.log("User " + response.data.firstname + " " + response.data.lastname + " logged in!");
-    						$location.path('/user/home');
-    					},
-    					function(response){
-    						//Neuspesno
-    						
-    						console.log("LOGIN FAILED");
-    					}
-    				)
+    			)*/
     		}
     		
     		
     		
     		
     	};
-    	$scope.onRegisterClick = function(){
-    		var user = {
-    			firstName:$scope.firstName,
-    			lastName:$scope.lastName,
-    			email:$scope.registerEmail,
-    			password:$scope.password,
-    			passwordConfirm:$scope.passwordConfirm
-    		}
-    		console.log(user);
-    		$http.post('/user/register', user).then(
-    			function(response){
-    				//Uspesno
-    				
-    				console.log("User " + response.data.firstName + " " + response.data.lastName + " registered!");
-    				$location.path('/user/home');
-    			},
-    			function(response){
-    				//Neuspesno
-    				console.log("REGISTRATION FAILED");
-    			}
-    		)
-    	};
+    	
     });
     
     webApp.controller('systemManager_regSysMan_Controller', function($scope, $http, $location, $rootScope){
     	$scope.regSysMan_btnClick = function(){
-    		var user = {
-    			firstname:$scope.regSysMan_firstname,
-    			lastname:$scope.regSysMan_lastname,
-    			email:$scope.regSysMan_email,
-    			password:$scope.regSysMan_password,
-    			master:0
-    		}
-    		$http.post('/systemManager/addSystemManager', user).then(
-				function(response){
-					$location.path('/systemManager/home');
-				},
-				function(response){
-					console.log("LOGIN FAILD")
-				}
+    		$http.get('api/systemManagers').then(
+					function(response){
+						var users = response.data.content;
+						var found = 0;
+						for(i = 0; i<users.length; i++){
+							if(users[i].email == $scope.regSysMan_email){
+								found = 1;
+							}
+						}
+						if(found == 0){
+							var sysm = {
+				    			firstname:$scope.regSysMan_firstname,
+				    			lastname:$scope.regSysMan_lastname,
+				    			email:$scope.regSysMan_email,
+				    			password:$scope.regSysMan_password,
+				    			master:0
+				    		}
+							$http.post('/api/systemManagers', sysm).then(
+								function(response){
+									$location.path('/systemManager/home');
+								},
+								function(response){
+									
+								}
+							)
+						}
+					},
+					function(response){
+						//Nikada nije neuspesno
+					}
+			
 			)
     	};
     });
     
     webApp.controller('systemManager_regRes_Controller', function($scope, $http, $location, $rootScope){
     	$scope.regRes_btnClick = function(){
-    		var res = {
-    			name:$scope.regRes_name,
-    			type:$scope.regRes_type
-    		}
-    		$http.post('/systemManager/addRestaurant', res).then(
+    		$http.get('api/restaurants').then(
+					function(response){
+						var ress = response.data.content;
+						var found = 0;
+						for(i = 0; i<ress.length; i++){
+							if(ress[i].name == $scope.regRes_name){
+								found = 1;
+							}
+						}
+						if(found == 0){
+							var res = {
+				    			name:$scope.regRes_name,
+				    			type:$scope.regRes_type
+				    		}
+							$http.post('/api/restaurants', res).then(
+								function(response){
+									$location.path('/systemManager/home');
+								},
+								function(response){
+									
+								}
+							)
+						}
+					},
+					function(response){
+						//Nikada nije neuspesno
+					}
+			
+			)
+    	};
+    });
+    
+    webApp.controller('systemManager_regResMan_Controller', function($scope, $http, $location, $rootScope){
+    	$http.get('api/restaurants').then(
 				function(response){
-					console.log("Restaurant " + res.name + " registered.");
-					$location.path('/systemManager/home');
+					$scope.regResMan = {
+						availableOptions: response.data.content,
+						selectedOption: {}
+					}
+					$scope.regResMan.selectedOption = $scope.regResMan.availableOptions[0];
 				},
 				function(response){
-					console.log("Restaurant registration faild.")
+					//Nikada nije neuspesno
 				}
-			)
+		
+		)
+    	$scope.regResMan_btnClick = function(){
+    		console.log($scope.regResMan.selectedOption);
+    		console.log($scope.regResMan.selectedOption.name);
+    		if($scope.regResMan.selectedOption.name != undefined){
+    			$http.get('api/restaurantManagers').then(
+    					function(response){
+    						var users = response.data.content;
+    						var found = 0;
+    						for(i = 0; i<users.length; i++){
+    							if(users[i].email == $scope.regResMan_email){
+    								found = 1;
+    							}
+    						}
+    						if(found == 0){
+    							var rest = {
+									id:$scope.regResMan.selectedOption.id,
+									name:$scope.regResMan.selectedOption.name,
+									type:$scope.regResMan.selectedOption.type
+    							}
+    							var resm = {
+									firstname:$scope.regResMan_firstname,
+					    			lastname:$scope.regResMan_lastname,
+					    			email:$scope.regResMan_email,
+					    			password:$scope.regResMan_password,
+					    			restaurant:rest
+    				    		}
+    							$http.post('/api/restaurantManagers', resm).then(
+    								function(response){
+    									$location.path('/systemManager/home');
+    								},
+    								function(response){
+    									
+    								}
+    							)
+    						}
+    					},
+    					function(response){
+    						//Nikada nije neuspesno
+    					}
+    			
+    			)
+    		}
+    		
     	};
     });
     
@@ -209,6 +310,55 @@
     webApp.controller('userController', function($scope, $http, $location, $rootScope) {
     	
     	
+    });
+    
+    webApp.controller("UserFriendsController", [ '$scope', '$http', function($scope, $http){
+    	
+    	$http.get('/api/users').success(function(data) {
+            $scope.users = data.content; // get data from json
+            $scope.userStack = [];
+            
+              angular.forEach($scope.users, function(item){
+                   console.log(item.firstName);
+                   $scope.userStack = item.firstName;
+                
+               })
+        });
+    	
+        $scope.removeUser = function(user){
+            var userToRemove = $scope.users.indexOf(user);
+             $scope.users.splice(userToRemove,1);
+
+        }
+
+        
+
+    }]);
+    
+    webApp.controller('RegisterController', function($scope, $http, $location, $rootScope) {
+    	
+    	$scope.onRegisterClick = function(){
+    		var user = {
+    			firstName:$scope.ime,
+    			lastName:$scope.prezime,
+    			email:$scope.email,
+    			password:$scope.password,
+    			passwordConfirm:$scope.password2
+    		}
+    		console.log(user);
+    		$http.post('/api/users', user).then(
+    			function(response){
+    				//Uspesno
+    				
+    				console.log("User " + response.data.firstName + " " + response.data.lastName + " registered!");
+    				$location.path('/');
+    			},
+    			function(response){
+    				//Neuspesno
+    				console.log("REGISTRATION FAILED");
+    			}
+    		)
+    	};
     });
    
     
