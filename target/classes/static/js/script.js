@@ -41,7 +41,7 @@
             
             .when('/systemManager/registerRestaurantManager', {
                 templateUrl : 'pages/registerRestaurantManager.html',
-                controller  : 'systemManagerController'
+                controller  : 'systemManager_regResMan_Controller'
             })
             
             .when('/systemManager/registerSystemManager', {
@@ -178,39 +178,132 @@
     
     webApp.controller('systemManager_regSysMan_Controller', function($scope, $http, $location, $rootScope){
     	$scope.regSysMan_btnClick = function(){
-    		var user = {
-    			firstname:$scope.regSysMan_firstname,
-    			lastname:$scope.regSysMan_lastname,
-    			email:$scope.regSysMan_email,
-    			password:$scope.regSysMan_password,
-    			master:0
-    		}
-    		$http.post('/systemManager/addSystemManager', user).then(
-				function(response){
-					$location.path('/systemManager/home');
-				},
-				function(response){
-					console.log("LOGIN FAILD")
-				}
+    		$http.get('api/systemManagers').then(
+					function(response){
+						var users = response.data.content;
+						var found = 0;
+						for(i = 0; i<users.length; i++){
+							if(users[i].email == $scope.regSysMan_email){
+								found = 1;
+							}
+						}
+						if(found == 0){
+							var sysm = {
+				    			firstname:$scope.regSysMan_firstname,
+				    			lastname:$scope.regSysMan_lastname,
+				    			email:$scope.regSysMan_email,
+				    			password:$scope.regSysMan_password,
+				    			master:0
+				    		}
+							$http.post('/api/systemManagers', sysm).then(
+								function(response){
+									$location.path('/systemManager/home');
+								},
+								function(response){
+									
+								}
+							)
+						}
+					},
+					function(response){
+						//Nikada nije neuspesno
+					}
+			
 			)
     	};
     });
     
     webApp.controller('systemManager_regRes_Controller', function($scope, $http, $location, $rootScope){
     	$scope.regRes_btnClick = function(){
-    		var res = {
-    			name:$scope.regRes_name,
-    			type:$scope.regRes_type
-    		}
-    		$http.post('/systemManager/addRestaurant', res).then(
+    		$http.get('api/restaurants').then(
+					function(response){
+						var ress = response.data.content;
+						var found = 0;
+						for(i = 0; i<ress.length; i++){
+							if(ress[i].name == $scope.regRes_name){
+								found = 1;
+							}
+						}
+						if(found == 0){
+							var res = {
+				    			name:$scope.regRes_name,
+				    			type:$scope.regRes_type
+				    		}
+							$http.post('/api/restaurants', res).then(
+								function(response){
+									$location.path('/systemManager/home');
+								},
+								function(response){
+									
+								}
+							)
+						}
+					},
+					function(response){
+						//Nikada nije neuspesno
+					}
+			
+			)
+    	};
+    });
+    
+    webApp.controller('systemManager_regResMan_Controller', function($scope, $http, $location, $rootScope){
+    	$http.get('api/restaurants').then(
 				function(response){
-					console.log("Restaurant " + res.name + " registered.");
-					$location.path('/systemManager/home');
+					$scope.regResMan = {
+						availableOptions: response.data.content,
+						selectedOption: {}
+					}
+					$scope.regResMan.selectedOption = $scope.regResMan.availableOptions[0];
 				},
 				function(response){
-					console.log("Restaurant registration faild.")
+					//Nikada nije neuspesno
 				}
-			)
+		
+		)
+    	$scope.regResMan_btnClick = function(){
+    		console.log($scope.regResMan.selectedOption);
+    		console.log($scope.regResMan.selectedOption.name);
+    		if($scope.regResMan.selectedOption.name != undefined){
+    			$http.get('api/restaurantManagers').then(
+    					function(response){
+    						var users = response.data.content;
+    						var found = 0;
+    						for(i = 0; i<users.length; i++){
+    							if(users[i].email == $scope.regResMan_email){
+    								found = 1;
+    							}
+    						}
+    						if(found == 0){
+    							var rest = {
+									id:$scope.regResMan.selectedOption.id,
+									name:$scope.regResMan.selectedOption.name,
+									type:$scope.regResMan.selectedOption.type
+    							}
+    							var resm = {
+									firstname:$scope.regResMan_firstname,
+					    			lastname:$scope.regResMan_lastname,
+					    			email:$scope.regResMan_email,
+					    			password:$scope.regResMan_password,
+					    			restaurant:rest
+    				    		}
+    							$http.post('/api/restaurantManagers', resm).then(
+    								function(response){
+    									$location.path('/systemManager/home');
+    								},
+    								function(response){
+    									
+    								}
+    							)
+    						}
+    					},
+    					function(response){
+    						//Nikada nije neuspesno
+    					}
+    			
+    			)
+    		}
+    		
     	};
     });
     

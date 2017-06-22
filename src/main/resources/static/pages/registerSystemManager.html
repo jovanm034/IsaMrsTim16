@@ -1,9 +1,19 @@
-Firstname:
-<input type="text" ng-model="regSysMan_firstname" style="width:200px">
-Lastname:
-<input type="text" ng-model="regSysMan_lastname" style="width:200px">
-Email:
-<input type="text" ng-model="regSysMan_email" style="width:200px">
-Password:
-<input type="password" ng-model="regSysMan_password" style="width:200px">
-<button ng-click="regSysMan_btnClick()" style="width:200px">Register</button>
+<form name="myForm">
+	<div class="form-group">
+		<label for="">Ime:</label>
+		<br>
+		<input class = "form-control" type="text" ng-model="regSysMan_firstname" style="width:200px">
+		<br>
+		<label for="">Prezime:</label>
+		<input class = "form-control" type="text" ng-model="regSysMan_lastname" style="width:200px">
+		<br>
+		<label for="">Email:</label>
+		<input class = "form-control" type="text" ng-model="regSysMan_email" style="width:200px">
+		<br>
+		<label for="">Sifta:</label>
+		<input class = "form-control" type="password" ng-model="regSysMan_password" style="width:200px">
+		<br>
+		<br>
+		<button class="btn btn-primary" ng-click="regSysMan_btnClick()" style="width:200px">Registruj</button>
+	</div>
+</form>

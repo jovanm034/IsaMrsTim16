@@ -1,0 +1,25 @@
+<form name="myForm">
+	<div class="form-group">
+		<label for="">Ime:</label>
+		<br>
+		<input class = "form-control" type="text" ng-model="regResMan_firstname" style="width:200px">
+		<br>
+		<label for="">Prezime:</label>
+		<input class = "form-control" type="text" ng-model="regResMan_lastname" style="width:200px">
+		<br>
+		<label for="">Email:</label>
+		<input class = "form-control" type="text" ng-model="regResMan_email" style="width:200px">
+		<br>
+		<label for="">Sifta:</label>
+		<input class = "form-control" type="password" ng-model="regResMan_password" style="width:200px">
+		<br>
+		<label for="">Restoran:</label>
+		<br>
+		<select name="" id="repeatSelect" class = "form-control" ng-model="regResMan.model">
+      		<option ng-repeat="option in regResMan.availableOptions" value="{{option.id}}" style="color:black;">{{option.name}}</option>
+    	</select>
+		<br>
+		<br>
+		<button class="btn btn-primary" ng-click="regResMan_btnClick()" style="width:200px">Registruj</button>
+	</div>
+</form>
