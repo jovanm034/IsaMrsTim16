@@ -59,21 +59,25 @@
             	controller	: 'provider_firstLogin_Controller'
             })
             
-            .when('/provider/update', { //TODO
+            .when('/provider/update', {
             	templateUrl : 'pages/providerUpdate.html',
             	controller	: 'provider_update_Controller'
             })
             
-            .when('/provider/offers', { //TODO
+            .when('/provider/offers', {
             	templateUrl : 'pages/providerOffers.html',
             	controller	: 'provider_offers_Controller'
             })
             
-            .when('/provider/orders', { //TODO
+            .when('/provider/orders', {
             	templateUrl : 'pages/providerOrders.html',
             	controller	: 'provider_orders_Controller'
             })
             
+            .when('/restaurantManager/home', {
+            	templateUrl : 'pages/restaurantManagerHome.html',
+            	controller	: 'restaurantManager_home_Controller'
+            })
             .otherwise({
             	redirectTo:'/'
             });
@@ -145,7 +149,24 @@
     		}
     		//Restaurant manager
     		if($scope.loginRoll == "6"){
-    			
+    			$http.get('api/restaurantManagers').then(
+        				function(response){
+        					var managers = response.data.content;
+        					var found = 0;
+        					for(i = 0; i<managers.length; i++){
+    							if(managers[i].email == $scope.loginEmail){
+    								if(managers[i].password == $scope.loginPassword){
+    									found = 1;
+    									$rootScope.loggedUser = managers[i];
+    								}
+    							}
+    						}
+    						if(found == 1){
+    							$location.path('/restaurantManager/home');
+    						}
+        				},
+        				function(response){}
+        			)
     		}
     		//System manager
     		if($scope.loginRoll == "7"){
@@ -376,6 +397,10 @@
         	)
     	}
     	
+    	
+    });
+    
+    webApp.controller('restaurantManager_home_Controller', function($scope, $http, $location, $rootScope) {
     	
     });
     
