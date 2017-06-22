@@ -48,6 +48,17 @@
                 templateUrl : 'pages/registerSystemManager.html',
                 controller  : 'systemManager_regSysMan_Controller'
             })
+            
+            .when('/provider/home', {
+            	templateUrl : 'pages/providerHome.html',
+            	controller	: 'provider_Controller'
+            })
+            
+            .when('/provider/firstLogin', {
+            	templateUrl : 'pages/firstLogin.html',
+            	controller	: 'provider_firstLogin_Controller'
+            })
+            
             .otherwise({
             	redirectTo:'/'
             });
@@ -94,7 +105,28 @@
     		}
     		//Provider
     		if($scope.loginRoll == "5"){
-    			
+    			$http.get('api/providers').then(
+    				function(response){
+    					var providers = response.data.content;
+    					var found = 0;
+    					for(i = 0; i<providers.length; i++){
+							if(providers[i].email == $scope.loginEmail){
+								if(providers[i].password == $scope.loginPassword){
+									found = 1;
+									$rootScope.loggedUser = providers[i];
+								}
+							}
+						}
+						if(found == 1){
+							if($rootScope.loggedUser.logedBefore == 0){
+								$location.path('/provider/firstLogin');
+							}else{
+								$location.path('/provider/home');
+							}
+						}
+    				},
+    				function(response){}
+    			)
     		}
     		//Restaurant manager
     		if($scope.loginRoll == "6"){
@@ -103,50 +135,26 @@
     		//System manager
     		if($scope.loginRoll == "7"){
     			$http.get('api/systemManagers').then(
-    					function(response){
-    						var users = response.data.content;
-    						var found = 0;
-    						for(i = 0; i<users.length; i++){
-    							if(users[i].email == $scope.loginEmail){
-    								if(users[i].password == $scope.loginPassword){
-    									found = 1;
-    									$rootScope.loggedUser = users[i];
-    								}
-    							}
-    						}
-    						if(found == 1){
-    							$location.path('/systemManager/home');
-    						}
-    					},
-    					function(response){
-    						//Nikada nije neuspesno
-    					}
-    			
+					function(response){
+						var users = response.data.content;
+						var found = 0;
+						for(i = 0; i<users.length; i++){
+							if(users[i].email == $scope.loginEmail){
+								if(users[i].password == $scope.loginPassword){
+									found = 1;
+									$rootScope.loggedUser = users[i];
+								}
+							}
+						}
+						if(found == 1){
+							$location.path('/systemManager/home');
+						}
+					},
+					function(response){
+						//Nikada nije neuspesno
+					}
     			)
-    			/*var user = {
-        			firstname:"",
-        			lastname:"",
-        			email:$scope.loginEmail,
-        			password:$scope.loginPassword,
-        			master:0
-            	}
-    			$http.post('/systemManager/login', user).then(
-    				function(response){
-    					//Uspesno
-    					$rootScope.loggedUser = response.data;
-    					console.log("System manager " + response.data.firstname + " " + response.data.lastname + " logged in!");
-    					$location.path('/systemManager/home');
-    				},
-    				function(response){
-    					//Neuspesno
-    					
-    					console.log("LOGIN FAILD");
-    				}
-    			)*/
-    		}
-    		
-    		
-    		
+    		}  		
     		
     	};
     	
@@ -155,36 +163,35 @@
     webApp.controller('systemManager_regSysMan_Controller', function($scope, $http, $location, $rootScope){
     	$scope.regSysMan_btnClick = function(){
     		$http.get('api/systemManagers').then(
-					function(response){
-						var users = response.data.content;
-						var found = 0;
-						for(i = 0; i<users.length; i++){
-							if(users[i].email == $scope.regSysMan_email){
-								found = 1;
-							}
+				function(response){
+					var users = response.data.content;
+					var found = 0;
+					for(i = 0; i<users.length; i++){
+						if(users[i].email == $scope.regSysMan_email){
+							found = 1;
 						}
-						if(found == 0){
-							var sysm = {
-				    			firstname:$scope.regSysMan_firstname,
-				    			lastname:$scope.regSysMan_lastname,
-				    			email:$scope.regSysMan_email,
-				    			password:$scope.regSysMan_password,
-				    			master:0
-				    		}
-							$http.post('/api/systemManagers', sysm).then(
-								function(response){
-									$location.path('/systemManager/home');
-								},
-								function(response){
-									
-								}
-							)
-						}
-					},
-					function(response){
-						//Nikada nije neuspesno
 					}
-			
+					if(found == 0){
+						var sysm = {
+			    			firstname:$scope.regSysMan_firstname,
+			    			lastname:$scope.regSysMan_lastname,
+			    			email:$scope.regSysMan_email,
+			    			password:$scope.regSysMan_password,
+			    			master:0
+			    		}
+						$http.post('/api/systemManagers', sysm).then(
+							function(response){
+								$location.path('/systemManager/home');
+							},
+							function(response){
+								
+							}
+						)
+					}
+				},
+				function(response){
+					//Nikada nije neuspesno
+				}
 			)
     	};
     });
@@ -305,6 +312,28 @@
     		console.log($rootScope.loggedUser.firstname);
     		$location.path('/');
     	};
+    });
+    
+    webApp.controller('provider_Controller', function($scope, $http, $location, $rootScope) {
+    	
+    	
+    });
+    
+    webApp.controller('provider_firstLogin_Controller', function($scope, $http, $location, $rootScope) {
+    	$scope.onButtonClick = function(){
+    		$rootScope.loggedUser.logedBefore = 1;
+        	$rootScope.loggedUser.password = $scope.flpass;
+        	$http.put('/api/providers/'+$rootScope.loggedUser.id, $rootScope.loggedUser).then(
+        		function(response){
+        			$rootScope.loggedUser = response.data;
+        			console.log($rootScope.loggedUser);
+        			$location.path('/provider/home');
+        		},
+        		function(response){}
+        	)
+    	}
+    	
+    	
     });
     
     webApp.controller('userController', function($scope, $http, $location, $rootScope) {
