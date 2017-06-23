@@ -34,6 +34,11 @@
             	controller  : 'UserProfileController'
             })
             
+            .when('/user/resturants',{
+            	templateUrl : 'pages/userAllResturants.html',
+            	controller  : 'UserResturants'
+            })
+            
             //system manager mapping
             .when('/systemManager/home', {
                 templateUrl : 'pages/systemManagerHome.html',
@@ -557,6 +562,20 @@
                 console.log("Uspesno modifikovan user");
             });
     	}
+    });
+    
+    webApp.controller('UserResturants', function($scope, $http, $location, $rootScope) {
+    	$scope.returants = [
+    		{
+    			name : "Bucin salas"
+    		},
+    		{
+    			name : "Mala carda"
+    		},
+    		{
+    			name : "Kod smeke"
+    		}
+    	]
     });
    
     

@@ -1,0 +1,9 @@
+<div ng-controller = "UserResturants" class = "userRest">
+	<div class="col-md-4" ng-repeat = "returant in returants | orderBy : order | filter:search">
+		<img class = "slika" style="width:200px" src="images/logo.jpg" alt=""><br>
+		<p style="font-size : 30px">{{returant.name}}</p><br>
+		<button class = "btn btn-info">Rezervacija</button>
+		<button class = "btn btn-warning">Ocene</button>
+   	</div>
+    
+</div>

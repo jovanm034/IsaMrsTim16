@@ -72,3 +72,11 @@ a{
 .fill2:hover{
     opacity: 0.5;
 }
+
+.slika{
+    border-radius: 50%;
+    width:200px;
+    height: 200px;
+}
+
+
