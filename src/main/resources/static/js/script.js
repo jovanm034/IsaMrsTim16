@@ -44,6 +44,11 @@
             	controller  : 'UserReserveRest'
             })
             
+            .when('/logout', {
+			  template: '/user/register'
+			 
+			})
+            
             //system manager mapping
             .when('/systemManager/home', {
                 templateUrl : 'pages/systemManagerHome.html',
@@ -581,11 +586,15 @@
                 console.log("Uspesno modifikovan user");
             });
     	}
+    	
+    	$scope.odjava = function(){
+    		
+    	}
     });
     
     webApp.controller('UserResturants', function($scope, $http, $location, $rootScope) {
     	
-    	$http.get('/api/resturants').success(function(data) {
+    	$http.get('/api/restaurants').success(function(data) {
             $scope.returants = data.content; // get data from json
             
             console.log("Ucitani svi restorani");
@@ -596,18 +605,32 @@
     		$location.path('/user/reserveRest');
     	}
     	
-    	$scope.returantsP = [
-    		{
-    			name : "Bucin salas"
-    		},
-    		{
-    			name : "Mala carda"
-    		},
-    		{
-    			name : "Kod smeke"
-    		}
-    	]
+    	
     });
+    
+ webApp.controller('UserReserveRest', function($scope, $http, $location, $rootScope) {
+	 	
+	 var reservation = {
+ 			userEmail:$rootScope.loggedUser.email,
+			dateTime:$scope.dateTime,
+ 			table:"sto"
+ 			
+ 		}
+	 
+	 console.log(reservation.dateTime);
+	 console.log(reservation.table);
+	 
+	 $scope.reserve = function(){
+	 
+    	$http.post('/api/reservation', reservation).success(function(data) {
+            console.log("Uspesna rezervacija.")
+        });
+	 }
+    	
+    	
+    });
+    
+    
     
     
    
