@@ -1,4 +1,16 @@
 <div ng-controller = "UserProfileController">
+	
+	<div class="topcorner">
+	    <a href = "#/user/profile">
+	    <span class="glyphicon glyphicon-user" aria-hidden="true"></span><br>
+	    </a>
+	    <p style = "color:white">{{loggedUser.firstName}} {{loggedUser.lastName}}</p>
+	    <a href = "#/user/home">
+	    <span class="glyphicon glyphicon-home" aria-hidden="true"></span><br>
+	    </a>
+	    <button class = "btn btn-danger">Odjava</button>
+    </div>
+
 	<div class = "content2">
 		<label style = "font-size:30px">Ime: </label><br>
 		<p style = "font-size:25px">{{loggedUser.firstName}}</p><br>

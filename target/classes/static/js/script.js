@@ -39,6 +39,11 @@
             	controller  : 'UserResturants'
             })
             
+            .when('/user/reserveRest',{
+            	templateUrl : 'pages/reserveRest.html',
+            	controller  : 'UserReserveRest'
+            })
+            
             //system manager mapping
             .when('/systemManager/home', {
                 templateUrl : 'pages/systemManagerHome.html',
@@ -486,7 +491,9 @@
     	
     });
     
-    webApp.controller("UserFriendsController", [ '$scope', '$http', function($scope, $http){
+    webApp.controller("UserFriendsController", [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
+    	
+    	
     	
     	$http.get('/api/users').success(function(data) {
             $scope.users = data.content; // get data from json
@@ -498,6 +505,8 @@
                })
         });
     	
+    	
+    	
         $scope.removeUser = function(user){
             var userToRemove = $scope.addedUsers.indexOf(user);
              $scope.addedUsers.splice(userToRemove,1);
@@ -505,9 +514,19 @@
         }
         
         $scope.addUser = function(user){
-        	$scope.addedUsers = [];
-        	console.log("Usao u add User");
-        	$scope.addedUsers.push(user);
+        	$scope.friendships = [];
+        	
+        	var friendship = {
+        			user1 : $rootScope.loggedUser.email,
+        			user2 : user.email,
+        			potvrda : 0
+        	}
+        	
+        	$http.post('/api/friendship', friendship).success(function(data) {
+                console.log("Friendship dodat");
+            });
+        	
+        	
         }
 
         
@@ -565,7 +584,19 @@
     });
     
     webApp.controller('UserResturants', function($scope, $http, $location, $rootScope) {
-    	$scope.returants = [
+    	
+    	$http.get('/api/resturants').success(function(data) {
+            $scope.returants = data.content; // get data from json
+            
+            console.log("Ucitani svi restorani");
+        });
+    	
+    	$scope.reserveUser = function(resturant){
+    		$rootScope.reserveResturant = resturant;
+    		$location.path('/user/reserveRest');
+    	}
+    	
+    	$scope.returantsP = [
     		{
     			name : "Bucin salas"
     		},
@@ -577,6 +608,8 @@
     		}
     	]
     });
+    
+    
    
     
 

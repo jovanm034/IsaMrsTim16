@@ -19,7 +19,7 @@ public interface UserRepository extends Repository<User, Long> {
 	public List<User> findAll();
 	public User save(User user);
 	public User findByEmailAndPassword(String email, String password);
-	public Page<User> findAll(Pageable pageable);;
+	public Page<User> findAll(Pageable pageable);
 	public User findById(Long id);
 	@Modifying(clearAutomatically = true)
 	@Transactional

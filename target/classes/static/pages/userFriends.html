@@ -1,4 +1,15 @@
 <div  ng-controller = "UserFriendsController">
+	
+	<div class="topcorner">
+	    <a href = "#/user/profile">
+	    <span class="glyphicon glyphicon-user" aria-hidden="true"></span><br>
+	    </a>
+	    <p style = "color:white">{{loggedUser.firstName}} {{loggedUser.lastName}}</p>
+	    <a href = "#/user/home">
+	    <span class="glyphicon glyphicon-home" aria-hidden="true"></span><br>
+	    </a>
+	    <button class = "btn btn-danger">Odjava</button>
+    </div>
 
 	<div class = "col-md-4 text-center friendsList">
 		<div class = "content2">
@@ -7,7 +18,7 @@
 		    <button ng-click = "order = 'lastName' ">Sortiraj po prezimenu</button>
 		    <input type="text" style = "color:black" ng-model = "search">
 		    <ul>
-		        <li ng-repeat = "user in users | orderBy : order | filter:search">
+		        <li ng-repeat = "user in friendships | orderBy : order | filter:search">
 		            <h3>{{user.firstName}} {{user.lastName}}</h3>
 		            <div class = "ctrl">
 		            <button class = "btn btn-primary" ng-click = "addUser(user)">Dodaj</button>
@@ -24,7 +35,7 @@
 		    <button ng-click = "order = 'lastName' ">Sortiraj po prezimenu</button>
 		    <input type="text" style = "color:black" ng-model = "search">
 		    <ul>
-		        <li ng-repeat = "user in addedUsers | orderBy : order | filter:search">
+		        <li ng-repeat = "user in friendships | orderBy : order | filter:search">
 		            <h3>{{user.firstName}} {{user.lastName}}</h3>
 		            <div class = "ctrl">
 		            <div class="remove" ng-click = "removeUser(user)">X</div>
@@ -41,7 +52,7 @@
 		    <button ng-click = "order = 'lastName' ">Sortiraj po prezimenu</button>
 		    <input type="text" style = "color:black" ng-model = "search">
 		    <ul>
-		        <li ng-repeat = "user in addedUsers | orderBy : order | filter:search">
+		        <li ng-repeat = "user in notChecked | orderBy : order | filter:search">
 		            <h3>{{user.firstName}} {{user.lastName}}</h3>
 		            <div class = "ctrl">
 		            <div class="remove" ng-click = "removeUser(user)">X</div>
