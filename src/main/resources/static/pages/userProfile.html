@@ -1,0 +1,18 @@
+<div ng-controller = "UserProfileController">
+	<div class = "content2">
+		<label style = "font-size:30px">Ime: </label><br>
+		<p style = "font-size:25px">{{loggedUser.firstName}}</p><br>
+		<label style = "font-size:20px">Prezime: </label><br>
+		<p style = "font-size:30px">{{loggedUser.lastName}}</p><br>
+		<label style = "font-size:20px">Lozinka: </label><br>
+		<p style = "font-size:30px">{{loggedUser.password}}</p><br>
+		<div ng-show = "showInput">
+			<input style = "color:black;" type = "text" name = "editName" ng-model = "loggedUser.firstName" value = "{{loggedUser.firstName}}">
+			<input style = "color:black;" type = "text" name = "editLastName" ng-model = "loggedUser.lastName" value = "{{loggedUser.LastName}}">
+			<input style = "color:black;" type = "text" name = "editPassword" ng-model = "loggedUser.password" value = "{{loggedUser.password}}">
+		</div><br>
+		<button class = "btn btn-warning" ng-show = "editEnabled" ng-click = "editUser()">Edit</button>
+		<button class = "btn btn-success" ng-show = "saveEnabled" ng-click = "saveUser()">Save</button><br>
+		
+	</div>
+</div>

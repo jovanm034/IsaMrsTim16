@@ -28,6 +28,12 @@
                 controller  : 'UserFriendsController'
                 
             })
+            
+            .when('/user/profile',{
+            	templateUrl : 'pages/userProfile.html',
+            	controller  : 'UserProfileController'
+            })
+            
             //system manager mapping
             .when('/systemManager/home', {
                 templateUrl : 'pages/systemManagerHome.html',
@@ -527,6 +533,26 @@
     			}
     		)
     	};
+    });
+    
+    webApp.controller('UserProfileController', function($scope, $http, $location, $rootScope) {
+    	$scope.saveEnabled = false;
+    	$scope.showInput = false;
+    	$scope.editEnabled = true;
+    	
+    	$scope.editUser = function(){
+    		$scope.saveEnabled = true;
+    		$scope.showInput = true;
+    		$scope.editEnabled = false;
+    	}
+    	
+    	$scope.saveUser = function(){
+    		$scope.saveEnabled = false;
+    		$scope.showInput = false;
+    		$scope.editEnabled = true;
+    		$rootScope.loggedUser.passwordConfirm = $rootScope.loggedUser.password;
+    		console.log($rootScope.loggedUser);
+    	}
     });
    
     
