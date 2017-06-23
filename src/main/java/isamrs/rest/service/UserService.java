@@ -57,4 +57,10 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
+
+	public int editUser(Long id, String firstName, String lastName, String password, String passwordConfirm) {
+		// TODO Auto-generated method stub
+		return userRepository.update(id, firstName, lastName, password, passwordConfirm);
+	}
+
 }

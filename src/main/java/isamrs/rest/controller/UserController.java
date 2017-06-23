@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import isamrs.rest.domain.Restaurant;
 import isamrs.rest.domain.SystemManager;
 import isamrs.rest.domain.User;
 import isamrs.rest.service.UserService;
@@ -115,6 +116,26 @@ public class UserController {
 			status = HttpStatus.NOT_FOUND;
 		}
 		return new ResponseEntity<User>(retVal, status);
+	}
+	
+	@RequestMapping(
+			value = "/api/editUser/{id}",
+			method = RequestMethod.PUT,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> editeUser(@PathVariable("id") Long id, @RequestBody User user) throws Exception {
+		int retVal = this.userService.editUser(id, user.getFirstName(), user.getLastName(), user.getPassword(), user.getPasswordConfirm());
+		HttpStatus status = null;
+		if(retVal != 0){
+			System.out.println("USO U OK");
+			status = HttpStatus.OK;
+			
+		}else{
+			System.out.println("USO U NOT FOUND");
+			status = HttpStatus.NOT_FOUND;
+		}
+		return new ResponseEntity<User>(this.userService.findByEmail(user.getEmail()), status);
+	
 	}
 
 

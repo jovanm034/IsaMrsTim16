@@ -547,11 +547,15 @@
     	}
     	
     	$scope.saveUser = function(){
+    		
     		$scope.saveEnabled = false;
     		$scope.showInput = false;
     		$scope.editEnabled = true;
     		$rootScope.loggedUser.passwordConfirm = $rootScope.loggedUser.password;
     		console.log($rootScope.loggedUser);
+    		$http.put('/api/editUser/' + $rootScope.loggedUser.id, $rootScope.loggedUser).success(function(data) {
+                console.log("Uspesno modifikovan user");
+            });
     	}
     });
    
