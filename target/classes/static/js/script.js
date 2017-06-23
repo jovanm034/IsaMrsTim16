@@ -11,11 +11,6 @@
                 templateUrl : 'pages/login.html',
                 controller  : 'loginController'
             })
-
-            .when('/systemManager/home', {
-                templateUrl : 'pages/systemManagerHome.html',
-                controller  : 'systemManagerController'
-            })
             
             .when('/user/home', {
             	templateUrl : 'pages/userHome.html',
@@ -33,6 +28,11 @@
                 controller  : 'UserFriendsController'
                 
             })
+            //system manager mapping
+            .when('/systemManager/home', {
+                templateUrl : 'pages/systemManagerHome.html',
+                controller  : 'systemManagerController'
+            })
 
             .when('/systemManager/registerRestaurant', {
                 templateUrl : 'pages/registerRestaurant.html',
@@ -48,7 +48,7 @@
                 templateUrl : 'pages/registerSystemManager.html',
                 controller  : 'systemManager_regSysMan_Controller'
             })
-            
+            //provider mapping
             .when('/provider/home', {
             	templateUrl : 'pages/providerHome.html',
             	controller	: 'provider_Controller'
@@ -73,11 +73,29 @@
             	templateUrl : 'pages/providerOrders.html',
             	controller	: 'provider_orders_Controller'
             })
-            
+            //restaurant manager mapping
             .when('/restaurantManager/home', {
             	templateUrl : 'pages/restaurantManagerHome.html',
             	controller	: 'restaurantManager_home_Controller'
             })
+            // rm -
+            // rm -
+            // rm - prikupljanje namirnica
+            .when('/restaurantManager/registerProvider', {
+            	templateUrl : 'pages/registerProvider.html',
+            	controller	: 'restaurantManager_registerProvider_Controller'
+            })
+            
+            .when('/restaurantManager/order', {
+            	templateUrl : 'pages/restaurantManagerOrder.html',
+            	controller	: 'restaurantManager_order_Controller'
+            })
+            
+            .when('/restaurantManager/offers', {
+            	templateUrl : 'pages/restaurantManagerOffers.html',
+            	controller	: 'restaurantManager_offers_Controller'
+            })
+            // rm -
             .otherwise({
             	redirectTo:'/'
             });
@@ -401,7 +419,55 @@
     });
     
     webApp.controller('restaurantManager_home_Controller', function($scope, $http, $location, $rootScope) {
-    	
+    	//Profil restorana //TODO
+    	//Evidencija zaposlenih //TODO
+    	//Prikupljanje namirnica
+    	$scope.onBtn9 = function(){
+    		$location.path('/restaurantManager/registerProvider');
+    	}
+    	$scope.onBtn10 = function(){
+    		$location.path('/restaurantManager/order');
+    	}
+    	$scope.onBtn11 = function(){
+    		$location.path('/restaurantManager/offers');
+    	}
+    	//Izvestaj o poslovanju //TODO
+    	//Logout - dodati i dugme //TODO
+    });
+    
+    webApp.controller('restaurantManager_registerProvider_Controller', function($scope, $http, $location, $rootScope) {
+    	$scope.onBtn1 = function(){
+    		$http.get('api/providers').then(
+    				function(response){
+    					var users = response.data.content;
+    					var found = 0;
+    					for(i = 0; i<users.length; i++){
+    						if(users[i].email == $scope.rmemail){
+    							found = 1;
+    						}
+    					}
+    					if(found == 0){
+    						var rm = {
+    			    			firstname:$scope.rmfname,
+    			    			lastname:$scope.rmlname,
+    			    			email:$scope.rmemail,
+    			    			password:$scope.rmpassword
+    			    		}
+    						$http.post('/api/providers', rm).then(
+    							function(response){
+    								$location.path('/restaurantManager/home');
+    							},
+    							function(response){
+    								
+    							}
+    						)
+    					}
+    				},
+    				function(response){
+    					//Nikada nije neuspesno
+    				}
+    			)
+    	}
     });
     
     webApp.controller('userController', function($scope, $http, $location, $rootScope) {
