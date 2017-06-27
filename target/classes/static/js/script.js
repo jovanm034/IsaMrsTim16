@@ -44,6 +44,11 @@
             	controller  : 'UserReserveRest'
             })
             
+            .when('/user/allReservations',{
+            	templateUrl : 'pages/userReservations.html',
+            	controller  : 'UserReservations'
+            })
+            
             .when('/logout', {
 			  template: '/user/register'
 			 
@@ -496,6 +501,11 @@
     	
     });
     
+    webApp.controller('userController', function($scope, $http, $location, $rootScope) {
+    	
+    	
+    });
+    
     webApp.controller("UserFriendsController", [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
     	
     	
@@ -503,36 +513,40 @@
     	$http.get('/api/users').success(function(data) {
             $scope.users = data.content; // get data from json
             
-              angular.forEach($scope.users, function(item){
-                   console.log(item.firstName);
-                  
-                
-               })
-        });
-    	
+              
+        })
     	
     	
         $scope.removeUser = function(user){
-            var userToRemove = $scope.addedUsers.indexOf(user);
-             $scope.addedUsers.splice(userToRemove,1);
+            var userToRemove = $scope.friends.indexOf(user);
+             $scope.friends.splice(userToRemove, 1);
+             var userToRemove2 = $rootScope.loggedUser.friends.indexOf(user);
+             $rootScope.loggedUser.friends.splice(userToRemove2, 1);
+             
+             $http.put('/api/editUser/' + $rootScope.loggedUser.id, $rootScope.loggedUser).success(function(data) {
+	                console.log("Uspesno modifikovan user");
+	         });
 
         }
         
         $scope.addUser = function(user){
-        	$scope.friendships = [];
         	
-        	var friendship = {
-        			user1 : $rootScope.loggedUser.email,
-        			user2 : user.email,
-        			potvrda : 0
+        	if(user.email != $rootScope.loggedUser.email){
+        	
+	        	$rootScope.loggedUser.friends.push(user);
+	        	
+	        	$http.put('/api/editUser/' + $rootScope.loggedUser.id, $rootScope.loggedUser).success(function(data) {
+	                console.log("Uspesno modifikovan user");
+	            });
+	        	
+	        	
+	        	$scope.friends = $rootScope.loggedUser.friends;
         	}
+            
         	
-        	$http.post('/api/friendship', friendship).success(function(data) {
-                console.log("Friendship dodat");
-            });
-        	
-        	
-        }
+        };
+        
+        
 
         
 
@@ -588,7 +602,8 @@
     	}
     	
     	$scope.odjava = function(){
-    		
+    		$rootScoop.loggedUser = undefined;
+    		$location.path('/');
     	}
     });
     
@@ -605,23 +620,29 @@
     		$location.path('/user/reserveRest');
     	}
     	
+    	$scope.allReservations = function(){
+    		$location.path('/user/allReservations');
+    	}
+    	
+    	
     	
     });
     
  webApp.controller('UserReserveRest', function($scope, $http, $location, $rootScope) {
 	 	
-	 var reservation = {
- 			userEmail:$rootScope.loggedUser.email,
-			dateTime:$scope.dateTime,
- 			table:"sto"
- 			
- 		}
+	
 	 
-	 console.log(reservation.dateTime);
-	 console.log(reservation.table);
-	 
-	 $scope.reserve = function(){
-	 
+	 $scope.reserveRest = function(){
+		 
+		 var reservation = {
+		 			userEmail:$rootScope.loggedUser.email,
+					date:$scope.date,
+					time : $scope.sati + ":" + $scope.minuti
+		 	}
+		 
+		 console.log($scope.date);
+		 console.log($scope.sati)
+		 console.log($scope.minuti)
     	$http.post('/api/reservation', reservation).success(function(data) {
             console.log("Uspesna rezervacija.")
         });
@@ -629,6 +650,20 @@
     	
     	
     });
+ 
+ webApp.controller('UserReservations', function($scope, $http, $location, $rootScope) {
+	 	
+	 $http.get('/api/reservations').success(function(data) {
+         $scope.reservations = data.content; // get data from json
+         
+           
+     })
+    	
+    	
+    });
+ 
+ 
+ 
     
     
     

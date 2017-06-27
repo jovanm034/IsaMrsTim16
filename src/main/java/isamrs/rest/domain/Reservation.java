@@ -19,21 +19,49 @@ public class Reservation implements Serializable {
 	@Column(nullable = false)
 	private String userEmail;
 	@Column(nullable = false)
-	private String dateTime;
+	private String date;
 	@Column(nullable = false)
-	private String table;
+	private String time;
+	
 	
 	public Reservation() {
 		
 	}
+	
 
-	public Reservation(Long id, String userEmail, String dateTime, String table) {
+	public Reservation(Long id, String userEmail, String date, String time) {
 		super();
 		this.id = id;
 		this.userEmail = userEmail;
-		this.dateTime = dateTime;
-		this.table = table;
+		this.date = date;
+		this.time = time;
 	}
+	
+
+
+	public String getDate() {
+		return date;
+	}
+
+
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+
+
+	public String getTime() {
+		return time;
+	}
+
+
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -51,21 +79,6 @@ public class Reservation implements Serializable {
 		this.userEmail = userEmail;
 	}
 
-	public String getDateTime() {
-		return dateTime;
-	}
-
-	public void setDateTime(String dateTime) {
-		this.dateTime = dateTime;
-	}
-
-	public String getTable() {
-		return table;
-	}
-
-	public void setTable(String table) {
-		this.table = table;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;

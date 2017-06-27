@@ -1,13 +1,18 @@
 package isamrs.rest.domain;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
-public class User {
+public class User implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -24,23 +29,31 @@ public class User {
 	private String password;
 	@Column(nullable = false)
 	private String passwordConfirm;
+	@ManyToMany
+	private List<User> friends = new ArrayList<User>();
+	
 	
 	public User(){
 		
 	}
 	
-	
 
-	public User(String firstName, String lastName, String email, String password, String passwordConfirm) {
+
+
+
+	public User(Long id, String firstName, String lastName, String email, String password, String passwordConfirm,
+			List<User> friends) {
 		super();
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.passwordConfirm = passwordConfirm;
+		this.friends = friends;
 	}
-	
-	
+
+
 
 
 
@@ -95,6 +108,23 @@ public class User {
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
+	
+
+
+
+	public List<User> getFriends() {
+		return friends;
+	}
+
+
+
+
+
+	public void setFriends(List<User> friends) {
+		this.friends = friends;
+	}
+
+
 
 
 

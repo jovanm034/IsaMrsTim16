@@ -1,0 +1,10 @@
+<div class = "content2">
+<label>Svi korisnici</label><br>
+    <button ng-click = "order = 'name' ">Sortiraj po imenu restorana</button>
+    <input type="text" style = "color:black" ng-model = "search">
+    <ul>
+        <li ng-repeat = "reservation in reservations | orderBy : order | filter:search">
+            <h3>{{reservation.resturantName}} - {{reservation.date}} {{reservation.time}}</h3>
+        </li>
+    </ul>
+</div>

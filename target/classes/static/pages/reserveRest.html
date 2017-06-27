@@ -1,24 +1,17 @@
-<div class = "container" ng-controller = "UserReserveRest"> 
-	
-	<div class="topcorner">
-	    <a href = "#/user/profile">
-	    <span class="glyphicon glyphicon-user" aria-hidden="true"></span><br>
-	    </a>
-	    <p style = "color:white">{{loggedUser.firstName}} {{loggedUser.lastName}}</p>
-	    <a href = "#/user/home">
-	    <span class="glyphicon glyphicon-home" aria-hidden="true"></span><br>
-	    </a>
-    </div>
-	
-	<label style = "color:white; font-size:15px" >Datum i vreme: </label>
-	<input size="16" type="datetime-local" ng-model = "dateTime"><br>
-	<label style = "color:white; font-size:15px">Odaberite sto:</label>
-	<select ng-model = "table">
-	  <option value="Sto za dve osobe">Sto za dve osobe</option>
-	  <option value="Sto za cetri osobe">Sto za cetri osobe</option>
-	  <option value="Sto za sest osoba">Sto za sest osoba</option>
-	  <option value="Sto za osam osoba">Sto za osam osoba</option>
-	</select><br>
-	<button class = "btn btn-success" ng-click = "reserve()">Rezervisi</button>
+<div ng-controller = "UserReserveRest">
+	<form name = "myForm">
+		<div class="form-group">
+		    <label for="">Datum:</label>
+		    <input type="date" class = "form-control" data-date-format="mm/dd/yyyy" name="date" ng-model = "date" >
+		</div>
+		<div class="form-group">
+		    <label for="">Vreme:</label>
+		    <input style = "width:70px" min="08" max="22" placeholder = "08-22" type="text" class = "form-control" name="sati" ng-model = "sati">
+		    <input style = "width:70px" min="08" max="22" placeholder = "00-59" type="text" class = "form-control" name="minuti" ng-model = "minuti">
+		    
+		</div>
+
+		<button class="btn btn-success" ng-click = "reserveRest()">Rezervisi</button>
+	</form>
 </div>
  
