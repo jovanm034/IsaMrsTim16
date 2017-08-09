@@ -1,30 +1,21 @@
 <div ng-controller = "UserProfileController">
-	
-	<div class="topcorner">
-	    <a href = "#/user/profile">
-	    <span class="glyphicon glyphicon-user" aria-hidden="true"></span><br>
-	    </a>
-	    <p style = "color:white">{{loggedUser.firstName}} {{loggedUser.lastName}}</p>
-	    <a href = "#/user/home">
-	    <span class="glyphicon glyphicon-home" aria-hidden="true"></span><br>
-	    <button class = "btn btn-danger" ng-click = "odjava()">Odjava</button>
-	    </a>
-    </div>
 
-	<div class = "content2">
-		<label style = "font-size:30px">Ime: </label><br>
-		<p style = "font-size:25px">{{loggedUser.firstName}}</p><br>
-		<label style = "font-size:20px">Prezime: </label><br>
-		<p style = "font-size:30px">{{loggedUser.lastName}}</p><br>
-		<label style = "font-size:20px">Lozinka: </label><br>
-		<p style = "font-size:30px">{{loggedUser.password}}</p><br>
-		<div ng-show = "showInput">
-			<input style = "color:black;" type = "text" name = "editName" ng-model = "loggedUser.firstName" value = "{{loggedUser.firstName}}">
-			<input style = "color:black;" type = "text" name = "editLastName" ng-model = "loggedUser.lastName" value = "{{loggedUser.LastName}}">
-			<input style = "color:black;" type = "text" name = "editPassword" ng-model = "loggedUser.password" value = "{{loggedUser.password}}">
-		</div><br>
-		<button class = "btn btn-warning" ng-show = "editEnabled" ng-click = "editUser()">Edit</button>
-		<button class = "btn btn-success" ng-show = "saveEnabled" ng-click = "saveUser()">Save</button><br>
-		
+	<div class = "container">
+		<div class = "userInfo">
+			<label>Ime: </label>
+			<p>{{loggedUser.firstName}}</p><br>
+			<label>Prezime: </label>
+			<p>{{loggedUser.lastName}}</p><br>
+			<label>Lozinka: </label>
+			<p>{{loggedUser.password}}</p><br>
+			<div ng-show = "showInput">
+				<input style = "color:black;" type = "text" name = "editName" ng-model = "loggedUser.firstName" value = "{{loggedUser.firstName}}">
+				<input style = "color:black;" type = "text" name = "editLastName" ng-model = "loggedUser.lastName" value = "{{loggedUser.LastName}}">
+				<input style = "color:black;" type = "text" name = "editPassword" ng-model = "loggedUser.password" value = "{{loggedUser.password}}">
+			</div><br>
+			<button class = "btn btn-warning" ng-show = "editEnabled" ng-click = "editUser()">Izmeni</button>
+			<button class = "btn btn-success" ng-show = "saveEnabled" ng-click = "saveUser()">Sacuvaj</button><br>
+		</div>
+		<button class = "btn btn-danger"  ng-click = "">Odjava</button><br>
 	</div>
 </div>

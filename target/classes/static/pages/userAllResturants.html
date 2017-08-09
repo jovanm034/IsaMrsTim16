@@ -1,21 +1,8 @@
 <div ng-controller = "UserResturants" class = "userRest">
-
-	<button class = "btn btn-primary" ng-click = "allReservations()" >Vase rezervacije</button>
-	
-	<div class="topcorner">
-	    <a href = "#/user/profile">
-	    <span class="glyphicon glyphicon-user" aria-hidden="true"></span><br>
-	    </a>
-	    <p style = "color:white">{{loggedUser.firstName}} {{loggedUser.lastName}}</p>
-	    <a href = "#/user/home">
-	    <span class="glyphicon glyphicon-home" aria-hidden="true"></span><br>
-	    </a>
-    </div>
-		
-	<div class="col-md-4" ng-repeat = "returant in returants | orderBy : order | filter:search">
-		<img class = "slika" style="width:200px" src="images/logo.jpg" alt=""><br>
-		<p style="font-size : 30px">{{returant.name}}</p><br>
-		<button class = "btn btn-info" ng-click = "reserveUser(resturant)">Rezervacija</button>
-		<button class = "btn btn-warning">Ocene</button>
+	<div class = "container">
+		<div class="col-md-4 restoran" ng-repeat = "resturant in resturants | orderBy : order | filter:search">
+			<a href = "#"><img class = "slika" style="width:200px" src="images/logo.jpg" alt="slika restorana"><br></a>
+			<p style="font-size : 30px">{{resturant.name}}</p><br>
+	   	</div>
    	</div>
 </div>

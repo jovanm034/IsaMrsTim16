@@ -609,8 +609,23 @@
     
     webApp.controller('UserResturants', function($scope, $http, $location, $rootScope) {
     	
+    	$scope.resturants = [
+    		{
+    			name : "Restoran1",
+    			
+    		},
+    		{
+    			name : "Restoran2",
+    			
+    		},
+    		{
+    			name : "Restoran3",
+    			
+    		},
+    	]
+    	
     	$http.get('/api/restaurants').success(function(data) {
-            $scope.returants = data.content; // get data from json
+            //$scope.returants = data.content; // get data from json
             
             console.log("Ucitani svi restorani");
         });
