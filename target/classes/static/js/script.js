@@ -130,6 +130,7 @@
     // create the controller and inject Angular's $scope
     
     webApp.controller('loginController', function($scope, $http, $location, $rootScope) {
+    	$scope.usable = false;
     	$scope.onLoginClick = function(){
     		//Guest
     		if($scope.loginRoll == "1") {
@@ -142,6 +143,7 @@
     				$http.post('/user/login', user).then(
     					function(response){
     						//Uspesno
+    						$scope.usable = true;
     						$rootScope.loggedUser = response.data;
     						console.log("User " + response.data.firstname + " " + response.data.lastname + " logged in!");
     						$location.path('/user/home');
@@ -498,13 +500,10 @@
     
     webApp.controller('userController', function($scope, $http, $location, $rootScope) {
     	
+    	$scope.usable = true;
     	
     });
     
-    webApp.controller('userController', function($scope, $http, $location, $rootScope) {
-    	
-    	
-    });
     
     webApp.controller("UserFriendsController", [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
     	
@@ -553,28 +552,38 @@
     }]);
     
     webApp.controller('RegisterController', function($scope, $http, $location, $rootScope) {
+    	$scope.noMatch = false;
     	
     	$scope.onRegisterClick = function(){
-    		var user = {
-    			firstName:$scope.ime,
-    			lastName:$scope.prezime,
-    			email:$scope.email,
-    			password:$scope.password,
-    			passwordConfirm:$scope.password2
+    		if($scope.password != $scope.password2){
+    			$scope.noMatch = true;
+    		}else{
+    			$scope.noMatch = false;
+    			var user = {
+    	    			firstName:$scope.ime,
+    	    			lastName:$scope.prezime,
+    	    			email:$scope.email,
+    	    			password:$scope.password,
+    	    			passwordConfirm:$scope.password2
+    	    		}
+    	    		
+    	    		
+    	    		console.log(user);
+    	    		$http.post('/api/users', user).then(
+    	    			function(response){
+    	    				//Uspesno
+    	    				
+    	    				console.log("User " + response.data.firstName + " " + response.data.lastName + " registered!");
+    	    				$location.path('/');
+    	    			},
+    	    			function(response){
+    	    				//Neuspesno
+    	    				console.log("REGISTRATION FAILED");
+    	    			}
+    	    		)
     		}
-    		console.log(user);
-    		$http.post('/api/users', user).then(
-    			function(response){
-    				//Uspesno
-    				
-    				console.log("User " + response.data.firstName + " " + response.data.lastName + " registered!");
-    				$location.path('/');
-    			},
-    			function(response){
-    				//Neuspesno
-    				console.log("REGISTRATION FAILED");
-    			}
-    		)
+    		
+    		
     	};
     });
     

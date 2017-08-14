@@ -178,10 +178,29 @@ article#main-col{
 .userInfo{
 	margin-top:5%;
 	width: 70%;
+	float:left;
 }
 
 .userInfo label{
 	font-size:20px;
+	width:70%;
+}
+
+.odjava{
+	float:right;
+	padding: 15px;
+}
+
+.disabled {
+	display:none;
+}
+
+.abled{
+	display:block;
+}
+
+input.ng-invalid.ng-dirty{
+	border: 1px solid red;
 }
 
 
