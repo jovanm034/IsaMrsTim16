@@ -31,6 +31,8 @@ public class User implements Serializable{
 	private String passwordConfirm;
 	@ManyToMany
 	private List<User> friends = new ArrayList<User>();
+	@ManyToMany
+	private List<User> requests = new ArrayList<User>();
 	
 	
 	public User(){
@@ -42,7 +44,7 @@ public class User implements Serializable{
 
 
 	public User(Long id, String firstName, String lastName, String email, String password, String passwordConfirm,
-			List<User> friends) {
+			List<User> friends, List<User> requests ) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -51,6 +53,7 @@ public class User implements Serializable{
 		this.password = password;
 		this.passwordConfirm = passwordConfirm;
 		this.friends = friends;
+		this.requests = requests;
 	}
 
 
@@ -109,32 +112,29 @@ public class User implements Serializable{
 		this.passwordConfirm = passwordConfirm;
 	}
 	
-
-
-
 	public List<User> getFriends() {
 		return friends;
 	}
 
-
-
-
-
 	public void setFriends(List<User> friends) {
 		this.friends = friends;
 	}
+	
+	public List<User> getRequests() {
+		return requests;
+	}
 
-
-
+	public void setRequests(List<User> requests) {
+		this.requests = requests;
+	}
 
 
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password
-				+ ", passwordConfirm=" + passwordConfirm + "]";
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", password=" + password + ", passwordConfirm=" + passwordConfirm + ", friends=" + friends
+				+ ", requests=" + requests + "]";
 	}
-	
-	
-	
+
 	
 }

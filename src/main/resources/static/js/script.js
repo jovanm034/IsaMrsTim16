@@ -49,10 +49,7 @@
             	controller  : 'UserReservations'
             })
             
-            .when('/logout', {
-			  template: '/user/register'
-			 
-			})
+         
             
             //system manager mapping
             .when('/systemManager/home', {
@@ -121,6 +118,11 @@
             	templateUrl : 'pages/restaurantManagerOffers.html',
             	controller	: 'restaurantManager_offers_Controller'
             })
+            
+            .when('/logout', {
+			  template: '', 
+			  controller: 'LogoutController'
+			})
             // rm -
             .otherwise({
             	redirectTo:'/'
@@ -134,6 +136,20 @@
     	$scope.onLoginClick = function(){
     		//Guest
     		if($scope.loginRoll == "1") {
+    			
+    			$http.get('/api/users').success(function(data) {
+    	            $scope.korisnici = data.content; // get data from json
+    	            angular.forEach($scope.korisnici, function(value, key){
+    	            	if($scope.loginEmail == value.email){
+    	            		$rootScope.loggedUser = value;
+    	            		console.log("Uspesno");
+    	            		$location.path('/user/home');
+    	            	}
+    	                
+    	             });
+    	        })
+    			
+    			/*
     			var user = {
     	    			firstname:"",
     	    			lastname:"",
@@ -153,7 +169,7 @@
     						
     						console.log("LOGIN FAILED");
     					}
-    				)
+    				)*/
     			
     		}
     		//Waiter
@@ -507,13 +523,72 @@
     
     webApp.controller("UserFriendsController", [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
     	
-    	
+    	$scope.requests = [];
     	
     	$http.get('/api/users').success(function(data) {
-            $scope.users = data.content; // get data from json
-            
-              
+            $scope.korisnici = data.content; // get data from json
+            angular.forEach($scope.korisnici, function(value, key){
+            	if(value.email == $rootScope.loggedUser.email && value.password == $rootScope.loggedUser.password){
+            		var index = $scope.korisnici.indexOf(value);
+            		$scope.korisnici.splice(index,1);
+            	}
+            	console.log("Korisnik: ")
+            	console.log(value);
+                
+             });
         })
+        
+        /*
+        
+        $scope.users = [
+    		{
+    			firstName : "Petar",
+    			lastName : "Petrovic"
+    			
+    		},
+    		{
+    			firstName : "Nikola",
+    			lastName : "Nikolic"
+    			
+    		},
+    		{
+    			firstName : "Marko",
+    			lastName : "Markovic"
+    			
+    		},
+    	];
+    	
+    	
+    	$scope.friends = [];
+    	
+    	$scope.sendRequest = function(user){
+    		
+        	
+    		 $scope.requests.push({
+    		        firstName: user.firstName,
+    		        lastName: user.lastName
+    		    });
+    		 
+    		 var index = $scope.users.indexOf(user);
+    		 
+    		 $scope.users.splice(index,1);
+            
+        	
+        };
+        
+        $scope.addUser = function(user){
+        	
+        	$scope.friends.push({
+		        firstName: user.firstName,
+		        lastName: user.lastName
+		    });
+        	
+        	var index = $scope.users.indexOf(user);
+   		 
+   		 	$scope.requests.splice(index,1);
+            
+        	
+        };
     	
     	
         $scope.removeUser = function(user){
@@ -526,7 +601,21 @@
 	                console.log("Uspesno modifikovan user");
 	         });
 
-        }
+        };
+        
+        $scope.request = function(user){
+        	
+        	user.requests.push($rootScope.loggedUser);
+        	
+        	$http.put('/api/editUser/' + user.id, user).success(function(data) {
+                console.log("Uspesno modifikovan user");
+            });         
+        	
+        	var index = $scope.users.indexOf(user);
+   		 
+   		 	$scope.korisnici.splice(index,1);
+        	
+        };
         
         $scope.addUser = function(user){
         	
@@ -543,7 +632,7 @@
         	}
             
         	
-        };
+        };*/
         
         
 
@@ -609,11 +698,6 @@
                 console.log("Uspesno modifikovan user");
             });
     	}
-    	
-    	$scope.odjava = function(){
-    		$rootScoop.loggedUser = undefined;
-    		$location.path('/');
-    	}
     });
     
     webApp.controller('UserResturants', function($scope, $http, $location, $rootScope) {
@@ -652,7 +736,7 @@
     	
     });
     
- webApp.controller('UserReserveRest', function($scope, $http, $location, $rootScope) {
+    webApp.controller('UserReserveRest', function($scope, $http, $location, $rootScope) {
 	 	
 	
 	 
@@ -675,7 +759,7 @@
     	
     });
  
- webApp.controller('UserReservations', function($scope, $http, $location, $rootScope) {
+ 	webApp.controller('UserReservations', function($scope, $http, $location, $rootScope) {
 	 	
 	 $http.get('/api/reservations').success(function(data) {
          $scope.reservations = data.content; // get data from json
@@ -686,6 +770,13 @@
     	
     });
  
+ 	webApp.controller('LogoutController', function($scope, $http, $location, $rootScope, $window) {
+	 	
+ 		$window.localStorage.clear();
+ 	    $location.path('/');
+ 	    	
+ 	    	
+ 	});
  
  
     
