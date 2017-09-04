@@ -3,6 +3,7 @@
 		<div class="col-md-4 restoran" ng-repeat = "resturant in resturants | orderBy : order | filter:search">
 			<a href = "#"><img class = "slika" style="width:200px" src="images/logo.jpg" alt="slika restorana"><br></a>
 			<p style="font-size : 30px">{{resturant.name}}</p><br>
+			<button ng-click="onReserveClick()">Rezervisi</button>
 	   	</div>
    	</div>
 </div>

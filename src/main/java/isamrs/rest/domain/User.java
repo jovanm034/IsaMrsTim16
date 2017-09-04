@@ -29,8 +29,10 @@ public class User implements Serializable{
 	private String password;
 	@Column(nullable = false)
 	private String passwordConfirm;
+	@Column
 	@ManyToMany
 	private List<User> friends = new ArrayList<User>();
+	@Column
 	@ManyToMany
 	private List<User> requests = new ArrayList<User>();
 	

@@ -41,7 +41,7 @@
             
             .when('/user/reserveRest',{
             	templateUrl : 'pages/reserveRest.html',
-            	controller  : 'UserReserveRest'
+            	controller  : 'FormController'
             })
             
             .when('/user/allReservations',{
@@ -133,6 +133,7 @@
     
     webApp.controller('loginController', function($scope, $http, $location, $rootScope) {
     	$scope.usable = false;
+    	$rootScope.dodat = false;
     	$scope.onLoginClick = function(){
     		//Guest
     		if($scope.loginRoll == "1") {
@@ -523,7 +524,7 @@
     
     webApp.controller("UserFriendsController", [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
     	
-    	$scope.requests = [];
+    	console.log($rootScope.loggedUser.requests);
     	
     	$http.get('/api/users').success(function(data) {
             $scope.korisnici = data.content; // get data from json
@@ -537,6 +538,26 @@
                 
              });
         })
+        
+        
+        
+        $scope.request = function(user){
+        	
+        	user.requests.push($rootScope.loggedUser);
+        	
+        	$http.put('/api/editUser/' + user.id, user).success(function(data) {
+                console.log("Uspesno modifikovan user");
+                console.log(user);
+                console.log(data);
+            });         
+        	
+        	$rootScope.dodat = true;
+        	/*
+        	var index = $scope.korisnici.indexOf(user);
+   		 
+   		 	$scope.korisnici.splice(index,1);*/
+        	
+        };
         
         /*
         
@@ -723,16 +744,15 @@
             console.log("Ucitani svi restorani");
         });
     	
-    	$scope.reserveUser = function(resturant){
+    	$scope.onReserveClick = function(resturant){
     		$rootScope.reserveResturant = resturant;
     		$location.path('/user/reserveRest');
+    		
     	}
     	
     	$scope.allReservations = function(){
     		$location.path('/user/allReservations');
     	}
-    	
-    	
     	
     });
     
@@ -777,6 +797,146 @@
  	    	
  	    	
  	});
+ 	
+ 	 webApp.controller('FormController', ['$http', '$scope', '$window',
+ 	    function($http, $scope, $window) {
+ 		 
+ 		 console.log("Usao u kontroler");
+
+ 	      var type = this;
+ 	      type.meals = [];
+ 	      // Call the form data
+ 	      $http.get('json/form-meals.json').success(function(data) {
+ 	        type.meals = data;
+ 	      });
+ 	      
+ 	      $http.get('json/form-drink.json').success(function(data) {
+ 	        type.drinks = data;
+ 	      });
+
+ 	      $scope.booking = {};
+ 	      // watch for a change in the totalDays or groupSize
+ 	      $scope.$watchGroup(['booking.groupSize'], function(value) {
+ 	        total();
+ 	      });
+
+ 	      // send data to action.php on submit
+ 	      $scope.handleFormSubmit = function(booking) {
+
+ 	        /*----
+ 	        Un comment the following lines to enable action.php script
+ 	        ----*/
+ 	        // $http.post('action.php', booking).success(function (data, status) {
+ 	        //     if (data.success) {
+ 	        //         $window.alert("Thank you! Your message has been sent.");
+ 	        //         $scope.booking = {};
+
+ 	        //         // display success message
+ 	        //         $scope.$parent.message = true;
+ 	        //     }			
+ 	        // }).error(function (data, status) {
+ 	        //     $window.alert("Sorry, there was a problem!");
+ 	        // });
+
+ 	        /*----
+ 				Remove the following 2 lines of code if you are enabling action.php script
+ 				----*/
+ 	        $scope.booking = {};
+ 	        $scope.$parent.message = true;
+
+
+ 	      };
+
+
+ 	      this.selectMeal = function(setMeal) {
+ 	        if (!setMeal.active) {
+ 	          setMeal.active = true;
+ 	        }else{
+ 	            setMeal.active = false;
+ 	        }
+ 	        
+ 	        total();
+ 	      };
+ 	        
+ 	      this.selectDrink = function(setDrink) {
+ 	        if (!setDrink.active) {
+ 	          setDrink.active = true;
+ 	        }else{
+ 	            setDrink.active = false;
+ 	        }
+ 	        
+ 	        total();
+ 	      };
+
+ 	      var me = this;
+
+ 	      var total = function() {
+
+ 	        var total = 0;
+ 	        var percentage = 0;
+ 	        var mealType;
+ 	        var drinkType;
+ 	        var discount = false;
+
+ 	        
+
+ 	        angular.forEach(me.meals, function(s) {
+ 	          if (s.active) {
+ 	            total += parseInt(s.price);
+ 	            mealType = s.name + ' - ' + s.description;
+ 	          }
+
+ 	        });
+ 	          
+ 	        angular.forEach(me.drinks, function(s) {
+ 	          if (s.active) {
+ 	            total += parseInt(s.price);
+ 	            drinkType = s.name + ' - ' + s.description;
+ 	          }
+
+ 	        });
+ 	          
+ 	        total *= parseInt($scope.booking.groupSize);
+ 	          
+ 	        
+
+ 	        $scope.booking.total = total;
+ 	        $scope.booking.mealType = mealType;
+ 	        $scope.booking.drinkType = drinkType;
+ 	      };
+
+ 	      // Datepicker
+
+ 	      $scope.open = function($event) {
+ 	        $event.preventDefault();
+ 	        $event.stopPropagation();
+
+ 	        $scope.opened1 = true;
+ 	      };
+
+
+ 	      $scope.clear = function() {
+ 	        $scope.dt = null;
+ 	        $scope.dt2 = null;
+ 	      };
+
+ 	      $scope.toggleMin = function() {
+ 	        $scope.minDate = $scope.minDate ? null : new Date();
+ 	      };
+ 	      $scope.toggleMin();
+
+ 	      $scope.dateOptions = {
+ 	        formatYear: 'yy',
+ 	        startingDay: 1
+ 	      };
+
+ 	      $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+ 	      $scope.format = $scope.formats[0];
+
+ 	    }
+ 	  ]);
+ 	
+ 	
  
  
     

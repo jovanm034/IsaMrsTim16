@@ -9,7 +9,7 @@
 		    <ul>
 		        <li ng-repeat = "user in korisnici | orderBy : order | filter:search1">
 		            <h3>{{user.firstName}} {{user.lastName}}</h3>
-		            <button class = "btn btn-primary" ng-click = "request(user)">Posalji zahtev</button>
+		            <button class = "btn btn-primary" ng-disabled = "dodat" ng-click = "request(user)">Posalji zahtev</button>
 		        </li>
 		    </ul>
 		</div>

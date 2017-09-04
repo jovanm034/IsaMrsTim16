@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import isamrs.rest.domain.Restaurant;
+import isamrs.rest.domain.RestaurantManager;
 import isamrs.rest.domain.SystemManager;
 import isamrs.rest.domain.User;
 import isamrs.rest.service.UserService;
@@ -124,7 +125,7 @@ public class UserController {
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> editeUser(@PathVariable("id") Long id, @RequestBody User user) throws Exception {
-		int retVal = this.userService.editUser(id, user.getFirstName(), user.getLastName(), user.getPassword(), user.getPasswordConfirm());
+		int retVal = this.userService.editUser(id, user.getFirstName(), user.getLastName(), user.getPassword(), user.getPasswordConfirm(), user.getFriends(), user.getRequests());
 		HttpStatus status = null;
 		if(retVal != 0){
 			System.out.println("USO U OK");
@@ -136,6 +137,19 @@ public class UserController {
 		}
 		return new ResponseEntity<User>(this.userService.findByEmail(user.getEmail()), status);
 	
+	}
+	
+	@RequestMapping(
+			value = "/api/getRequests",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Page<User>> getRequests(@RequestBody User user) throws Exception{
+		logger.info(">>> Getting requests");
+		Page<User> retVal = this.userService.findAllRequests(user);
+		System.out.println("Izasao iz fin all req");
+		HttpStatus status = HttpStatus.OK;
+		logger.info(">>> Getting requests");
+		return new ResponseEntity<Page<User>>(retVal, status);
 	}
 
 

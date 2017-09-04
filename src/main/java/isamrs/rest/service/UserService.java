@@ -1,5 +1,6 @@
 package isamrs.rest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ public class UserService {
 		
 	}
 	
+	
 	public User findOne(Long id) {
 		return userRepository.findById(id);
 		
@@ -58,9 +60,18 @@ public class UserService {
 	}
 
 
-	public int editUser(Long id, String firstName, String lastName, String password, String passwordConfirm) {
+	public int editUser(Long id, String firstName, String lastName, String password, String passwordConfirm,  List<User> friends,  List<User> requests) {
 		// TODO Auto-generated method stub
-		return userRepository.update(id, firstName, lastName, password, passwordConfirm);
+		System.out.println("");
+		System.out.println("USAO U EDIT USER!");
+		System.out.println("");
+		return userRepository.update(id, firstName, lastName, password, passwordConfirm, friends, requests);
+	}
+
+	public Page<User> findAllRequests(User user) {
+		System.out.println("Usao u fin all req");
+		User korisnik = userRepository.findByEmail(user.getEmail());
+		return (Page<User>) korisnik.getRequests();
 	}
 
 }

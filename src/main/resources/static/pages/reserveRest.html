@@ -1,4 +1,5 @@
-<div ng-controller = "UserReserveRest">
+
+<!--  
 	<form name = "myForm">
 		<div class="form-group">
 		    <label for="">Datum:</label>
@@ -13,5 +14,116 @@
 
 		<button class="btn btn-success" ng-click = "reserveRest()">Rezervisi</button>
 	</form>
-</div>
+-->
+
+<div class="container">
+          <div ng-hide="message">
+            <h4>Forma za rezervaciju</h4>
+            <p>Ispunite i potvrdite formu kako bi izvrsili rezervaciju.</p>
+            <p><span class="required">* </span>Obavezna polja</p>
+          </div>
+          <form name="mealForm" ng-controller="FormController as form" method="post" ng-submit="mealForm.$valid && handleFormSubmit(booking)" novalidate="" ng-hide="message">
+            <div class="row">
+              
+            <!-- /.row -->
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="startDate">Datum                                                                                                                       <span class="required"> *</span>
+                  </label>
+                  <p class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" is-open="opened1" min-date="minDate" max-date="" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-model="booking.startDate" name="startDate" id="startDate" ng-required="true" close-text="Close" ng-click="open($event)" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="open($event)">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                      </button>
+                    </span>
+                  </p>
+                </div>
+              </div>1
+            </div>
+            <!-- /.row -->
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="groupSize">Broj gostiju                                                                                                                       <span class="required"> *</span>
+                    <em>(maksimum 15)</em>
+                  </label>
+                  <select ng-model="booking.groupSize" class="form-control" name="groupSize" id="groupSize" required="">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- /.row -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Izaberite obrok                                                                                                                
+                    <em>(Obrok ce biti spreman na vreme)</em>
+                  </label>
+                  <ul>
+                    <li ng-model="booking.mealType" ng-repeat="meal in form.meals" ng-click="form.selectMeal(meal);" ng-class="{active:meal.active}" class="mealType">{{meal.name}} - {{meal.description}}                                                                                                                                     <span>{{meal.price | currency}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Izaberite Pice                                                                                                             
+                    <em>(Pice ce vas cekati na stolu)</em>
+                  </label>
+                  <ul>
+                    <li ng-model="booking.drinkType" ng-repeat="drink in form.drinks" ng-click="form.selectDrink(drink);" ng-class="{active:drink.active}" class="mealType">{{drink.name}} - {{drink.description}}                                                                                                                                     <span>{{drink.price | currency}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="message">Dodatne informacije                                                                                                                      <em>Ukoliko imate neke posebne zahteve ovde ih napisite.</em>
+                  </label>
+                  <textarea placeholder="Vacation address, specific dietery requirements, any other information" ng-model="booking.message" name="message" id="message" cols="30" rows="5"></textarea>
+                </div>
+              </div>
+            </div>
+            <!-- /.row -->
+            <div class="form-group">
+              <label class="total" for="total">
+							Total:                                                                                                 <span>{{booking.total | currency}}</span>
+                <em ng-show="booking.discount">(10% Discount of                                                                                                             <span>{{booking.percentage | currency}} applied)</span>
+                </em>
+              </label>
+            </div>
+            <div class="form-group">
+              <button type="submit" ng-disabled="mealForm.$invalid" value="Submit" class="btn btn-default">Submit</button>
+              <input type="hidden" ng-model="booking.mealType" name="mealType" />
+              <input type="hidden" ng-model="booking.total" name="total" />
+              <input type="hidden" ng-model="booking.percentage" name="discount" />
+            </div>
+          </form>
+
+        <!-- /.panel -->
+        <!-- Success message -->
+        <div ng-show="message">
+          <p>Form submitted succesfully! Thank you for contacting us. We aim to respond to all enquiries within 48hrs. </p>
+        </div>
+    </div>
+
+
  
