@@ -1,11 +1,8 @@
 package isamrs.rest.service;
 
 import isamrs.rest.domain.SystemManager;
-import isamrs.rest.domain.RestaurantManager;
 
 import org.springframework.data.domain.Page;
-
-import isamrs.rest.domain.Restaurant;
 
 
 public interface SystemManagerService {

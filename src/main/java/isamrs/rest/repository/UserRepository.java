@@ -10,7 +10,6 @@ import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import isamrs.rest.domain.SystemManager;
 import isamrs.rest.domain.User;
 
 public interface UserRepository extends Repository<User, Long> {

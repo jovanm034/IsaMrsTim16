@@ -1,16 +1,15 @@
-<form name="myForm">
-	<div class="form-group">
-		<label for="">Registruj:</label>
-		<br>
-		<button class="btn btn-primary" ng-click="onRegisterRestaurantClick()" style="width:200px">Restoran</button>
-		<br>
-		<br>
-		<button class="btn btn-primary" ng-click="onRegisterRestaurantManagerClick()" style="width:200px">Menadzera restorana</button>
-		<br>
-		<br>
-		<button class="btn btn-primary" ng-click="onRegisterSystemManagerClick()" style="width:200px" ng-hide="regSysMBtn">Menadzera sistema</button>
-		<br>
-		<br>
-		<button class="btn btn-primary" ng-click="onLogoutClick()" style="width:200px">Odjavi se</button>
-	</div>
-</form>
+<header>
+   <div class="container">
+       <div id="branding">
+           <h1><span class="highlight">Dinner</span> Time</h1>
+       </div>
+       <nav>
+           <ul>
+               <li><a href="#/systemManager/registerRestaurant">Registracija restorana</a></li>
+               <li><a href="#/systemManager/registerRestaurantManager" >Registracija menadzera restorana</a></li>
+               <li><a href="#/systemManager/registerSystemManager" >Registracija menadzera sistema</a></li>
+               <li><a href="#/" >Odjavi se</a></li>
+           </ul>
+       </nav>
+   </div>
+</header>

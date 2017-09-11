@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import isamrs.rest.domain.Restaurant;
-import isamrs.rest.domain.RestaurantManager;
 
 public interface RestaurantRepository extends Repository<Restaurant, Long>{
 
