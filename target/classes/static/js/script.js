@@ -466,6 +466,10 @@
     	
     });
     
+    webApp.controller('provider_orders_Controller', function($scope, $http, $location, $rootScope){
+    	
+    });
+    
     webApp.controller('restaurantManager_home_Controller', function($scope, $http, $location, $rootScope) {
     	//Profil restorana //TODO
     	//Evidencija zaposlenih //TODO
