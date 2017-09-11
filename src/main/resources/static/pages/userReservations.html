@@ -5,7 +5,7 @@
           </div>
           <nav>
               <ul>
-                  <li ><a href="#/user/home" >Početna</a></li>
+                  <li ><a href="#/user/home" >PoÄ�etna</a></li>
                   <li><a href="#/user/resturants" >Restorani</a></li>
                   <li><a href="#/user/allReservations" >Rezervacije</a></li>
                   <li><a href="#/user/friends" >Prijatelji</a></li>
@@ -14,13 +14,13 @@
           </nav>
       </div>
   	</header>
-<div class = "content2">
+<div class = "container">
 <label>Svi korisnici</label><br>
-    <button ng-click = "order = 'name' ">Sortiraj po imenu restorana</button>
-    <input type="text" style = "color:black" ng-model = "search">
+    <button ng-click = "order = 'name' ">Sortiraj po imenu restorana</button><br>
+    <input type="text" style = "color:black" ng-model = "search"><br>
     <ul>
         <li ng-repeat = "reservation in reservations | orderBy : order | filter:search">
-            <h3>{{reservation.resturantName}} - {{reservation.date}} {{reservation.time}}</h3>
+            <h3>{{reservation.resturantName}} - {{reservation.date}} | {{reservation.time}} | {{reservation.drinkType}} | {{reservation.mealType}} | {{reservation.total}}</h3>
         </li>
     </ul>
 </div>

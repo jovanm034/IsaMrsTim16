@@ -131,17 +131,20 @@
 
     // create the controller and inject Angular's $scope
     
-    webApp.controller('loginController', function($scope, $http, $location, $rootScope) {
+    webApp.controller('loginController', function($scope, $window, $http, $location, $rootScope) {
     	$scope.usable = false;
     	$rootScope.dodat = false;
     	$scope.onLoginClick = function(){
     		//Guest
     		if($scope.loginRoll == "1") {
     			
+    			$window.localStorage.clear();
+    			
     			$http.get('/api/users').success(function(data) {
     	            $scope.korisnici = data.content; // get data from json
     	            angular.forEach($scope.korisnici, function(value, key){
     	            	if($scope.loginEmail == value.email){
+    	            		$window.localStorage.setItem("userEmail",value.email);
     	            		$rootScope.loggedUser = value;
     	            		console.log("Uspesno");
     	            		$location.path('/user/home');
@@ -721,7 +724,7 @@
     	}
     });
     
-    webApp.controller('UserResturants', function($scope, $http, $location, $rootScope) {
+    webApp.controller('UserResturants', function($scope, $http, $location, $rootScope, $window) {
     	
     	$scope.resturants = [
     		{
@@ -747,6 +750,7 @@
     	$scope.onReserveClick = function(resturant){
     		$rootScope.reserveResturant = resturant;
     		$location.path('/user/reserveRest');
+    		$window.localStorage.setItem("resturantName", $scope.resturantName);
     		
     	}
     	
@@ -826,23 +830,19 @@
  	        /*----
  	        Un comment the following lines to enable action.php script
  	        ----*/
- 	        // $http.post('action.php', booking).success(function (data, status) {
- 	        //     if (data.success) {
- 	        //         $window.alert("Thank you! Your message has been sent.");
- 	        //         $scope.booking = {};
+ 	        $http.post('/api/reservation', booking).success(function (data, status) {
+ 	             if (data.success) {
+ 	                 $window.alert("Thank you! Your message has been sent.");
+ 	                 $scope.booking = {};
 
- 	        //         // display success message
- 	        //         $scope.$parent.message = true;
- 	        //     }			
- 	        // }).error(function (data, status) {
- 	        //     $window.alert("Sorry, there was a problem!");
- 	        // });
+ 	                 // display success message
+ 	                 $scope.$parent.message = true;
+ 	                 $window.localStorage.clear();
+ 	             }			
+ 	         }).error(function (data, status) {
+ 	             $window.alert("Sorry, there was a problem!");
+ 	         });
 
- 	        /*----
- 				Remove the following 2 lines of code if you are enabling action.php script
- 				----*/
- 	        $scope.booking = {};
- 	        $scope.$parent.message = true;
 
 
  	      };
@@ -903,38 +903,15 @@
  	        $scope.booking.total = total;
  	        $scope.booking.mealType = mealType;
  	        $scope.booking.drinkType = drinkType;
+ 	        $scope.booking.userEmail = $window.localStorage.getItem("userEmail");
+ 	        $scope.booking.date = $scope.date;
+ 	        $scope.booking.time =$scope.sati + ":" + $scope.minuti;
+ 	        $scope.booking.resturantName =  $window.localStorage.getItem("resturantName");
+ 	        
  	      };
-
- 	      // Datepicker
-
- 	      $scope.open = function($event) {
- 	        $event.preventDefault();
- 	        $event.stopPropagation();
-
- 	        $scope.opened1 = true;
- 	      };
-
-
- 	      $scope.clear = function() {
- 	        $scope.dt = null;
- 	        $scope.dt2 = null;
- 	      };
-
- 	      $scope.toggleMin = function() {
- 	        $scope.minDate = $scope.minDate ? null : new Date();
- 	      };
- 	      $scope.toggleMin();
-
- 	      $scope.dateOptions = {
- 	        formatYear: 'yy',
- 	        startingDay: 1
- 	      };
-
- 	      $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
- 	      $scope.format = $scope.formats[0];
-
- 	    }
- 	  ]);
+ 	 
+ 	     
+ 	 }]);
  	
  	
  

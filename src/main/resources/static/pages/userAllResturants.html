@@ -5,7 +5,7 @@
           </div>
           <nav>
               <ul>
-                  <li ><a href="#/user/home" >Početna</a></li>
+                  <li ><a href="#/user/home" >PoÄ�etna</a></li>
                   <li><a href="#/user/resturants" >Restorani</a></li>
                   <li><a href="#/user/allReservations" >Rezervacije</a></li>
                   <li><a href="#/user/friends" >Prijatelji</a></li>
@@ -18,7 +18,7 @@
 	<div class = "container">
 		<div class="col-md-4 restoran" ng-repeat = "resturant in resturants | orderBy : order | filter:search">
 			<a href = "#"><img class = "slika" style="width:200px" src="images/logo.jpg" alt="slika restorana"><br></a>
-			<p style="font-size : 30px">{{resturant.name}}</p><br>
+			<p style="font-size : 30px" ng-model = "resturantName">{{resturant.name}}</p><br>
 			<button ng-click="onReserveClick()">Rezervisi</button>
 	   	</div>
    	</div>

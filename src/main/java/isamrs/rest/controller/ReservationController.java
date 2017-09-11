@@ -41,6 +41,7 @@ private Logger logger = LoggerFactory.getLogger(this.getClass());
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) throws Exception{
 		logger.info(">>> Creating system manager");
+		System.out.println(reservation.toString());
 		Reservation retVal = this.reservationService.create(reservation);
 		HttpStatus status = null;
 		if(retVal != null){

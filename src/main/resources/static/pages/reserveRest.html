@@ -5,7 +5,7 @@
           </div>
           <nav>
               <ul>
-                  <li ><a href="#/user/home" >Početna</a></li>
+                  <li ><a href="#/user/home" >PoÄ�etna</a></li>
                   <li><a href="#/user/resturants" >Restorani</a></li>
                   <li><a href="#/user/allReservations" >Rezervacije</a></li>
                   <li><a href="#/user/friends" >Prijatelji</a></li>
@@ -41,11 +41,18 @@
             <div class="row">
               
             <!-- /.row -->
+            
+            <div class = "form-group">
+            	
+            </div>
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="startDate">Datum                                                                                                                       <span class="required"> *</span>
                   </label>
+                  <label for="">Datum:</label>
+		    	  <input type="date" class = "form-control" data-date-format="mm/dd/yyyy" name="date" ng-model = "date" >
+                  <!--  
                   <p class="input-group">
                     <input type="text" class="form-control" datepicker-popup="{{format}}" is-open="opened1" min-date="minDate" max-date="" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-model="booking.startDate" name="startDate" id="startDate" ng-required="true" close-text="Close" ng-click="open($event)" />
                     <span class="input-group-btn">
@@ -54,9 +61,13 @@
                       </button>
                     </span>
                   </p>
+                  -->
                 </div>
               </div>1
             </div>
+            <label for="">Vreme: <span class="required"> *</span></label>
+            <input style = "width:70px" min="08" max="22" placeholder = "08-22" type="text" class = "form-control" name="sati" ng-model = "sati">
+            <input style = "width:70px" min="08" max="22" placeholder = "00-59" type="text" class = "form-control" name="minuti" ng-model = "minuti">
             <!-- /.row -->
             <div class="row">
               <div class="col-sm-6">

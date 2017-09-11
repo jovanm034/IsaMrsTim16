@@ -22,6 +22,6 @@ public interface UserRepository extends Repository<User, Long> {
 	public User findById(Long id);
 	@Modifying(clearAutomatically = true)
 	@Transactional
-	@Query("update User u SET u.firstName = :userFirstName, u.lastName = :userLastName, u.password = :userPassword, u.passwordConfirm = :userPasswordConfirm, u.friends = :userFriends, u.requests = :userRequests WHERE u.id = :userId")
-	public int update(@Param("userId") Long id, @Param("userFirstName") String firstName, @Param("userLastName") String lastName, @Param("userPassword") String password, @Param("userPasswordConfirm") String passwordConfirm, @Param("userFriends") List<User> friends, @Param("userRequests") List<User> requests );
+	@Query("update User u SET u.firstName = :userFirstName, u.lastName = :userLastName, u.password = :userPassword, u.passwordConfirm = :userPasswordConfirm WHERE u.id = :userId")
+	public int update(@Param("userId") Long id, @Param("userFirstName") String firstName, @Param("userLastName") String lastName, @Param("userPassword") String password, @Param("userPasswordConfirm") String passwordConfirm);
 }

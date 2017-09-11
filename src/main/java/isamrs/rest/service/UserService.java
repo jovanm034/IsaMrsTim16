@@ -60,18 +60,13 @@ public class UserService {
 	}
 
 
-	public int editUser(Long id, String firstName, String lastName, String password, String passwordConfirm,  List<User> friends,  List<User> requests) {
+	public int editUser(Long id, String firstName, String lastName, String password, String passwordConfirm) {
 		// TODO Auto-generated method stub
 		System.out.println("");
 		System.out.println("USAO U EDIT USER!");
 		System.out.println("");
-		return userRepository.update(id, firstName, lastName, password, passwordConfirm, friends, requests);
+		return userRepository.update(id,firstName, lastName, password, passwordConfirm);
 	}
 
-	public Page<User> findAllRequests(User user) {
-		System.out.println("Usao u fin all req");
-		User korisnik = userRepository.findByEmail(user.getEmail());
-		return (Page<User>) korisnik.getRequests();
-	}
 
 }

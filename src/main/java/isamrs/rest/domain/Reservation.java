@@ -22,21 +22,36 @@ public class Reservation implements Serializable {
 	private String date;
 	@Column(nullable = false)
 	private String time;
+	@Column(nullable = false)
+	private String mealType;
+	@Column(nullable = false)
+	private String drinkType;
+	@Column(nullable = false)
+	private int total;
+	@Column(nullable = false)
+	private String resturantName;
 	
 	
 	public Reservation() {
 		
 	}
-	
 
-	public Reservation(Long id, String userEmail, String date, String time) {
+
+	public Reservation(Long id, String userEmail, String date, String time, String mealType, String drinkType,
+			int total, String resturantName) {
 		super();
 		this.id = id;
 		this.userEmail = userEmail;
 		this.date = date;
 		this.time = time;
+		this.mealType = mealType;
+		this.drinkType = drinkType;
+		this.total = total;
+		this.resturantName = resturantName;
 	}
-	
+
+
+
 
 
 	public String getDate() {
@@ -83,8 +98,54 @@ public class Reservation implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+
+	public String getMealType() {
+		return mealType;
+	}
+
+
+	public void setMealType(String mealType) {
+		this.mealType = mealType;
+	}
+
+
+	public String getDrinkType() {
+		return drinkType;
+	}
+
+
+	public void setDrinkType(String drinkType) {
+		this.drinkType = drinkType;
+	}
+
+
+	public int getTotal() {
+		return total;
+	}
+
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
 	
-	
-	
+
+	public String getResturantName() {
+		return resturantName;
+	}
+
+
+	public void setResturantName(String resturantName) {
+		this.resturantName = resturantName;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", userEmail=" + userEmail + ", date=" + date + ", time=" + time
+				+ ", mealType=" + mealType + ", drinkType=" + drinkType + ", total=" + total + ", resturantName="
+				+ resturantName + "]";
+	}
+
 	
 }
