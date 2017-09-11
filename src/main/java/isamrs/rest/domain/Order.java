@@ -8,8 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 @Entity
+@Table(name = "orderr")
 public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -20,7 +23,7 @@ public class Order implements Serializable {
 	@Column(nullable = false)
 	private Long restaurantManagerID;
 	@Column(nullable = false)
-	private Date endDate;
+	private String endDate;
 	@Column(nullable = false)
 	private boolean active;
 	
@@ -28,7 +31,7 @@ public class Order implements Serializable {
 		
 	}
 	
-	public Order(Long rmid, Date endd, boolean a){
+	public Order(Long rmid, String endd, boolean a){
 		super();
 		this.restaurantManagerID = rmid;
 		this.endDate = endd;
@@ -57,11 +60,11 @@ public class Order implements Serializable {
 		this.restaurantManagerID = restaurantManagerID;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 
