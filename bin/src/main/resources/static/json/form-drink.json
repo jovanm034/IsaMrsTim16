@@ -1,0 +1,21 @@
+[
+	{
+		"name": "Pice1",
+		"price": "20",
+		"description": "Opis pica 1",
+		"active": false
+	},
+	{
+		"name": "Pice2",
+		"price": "20",
+		"description": "Opis pica 2",
+		"active": false
+	},
+	{
+		"name": "Pice3",
+		"price": "40",
+		"description": "Opis pica 3",
+		"active": false
+	}
+
+]

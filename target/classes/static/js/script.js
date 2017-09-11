@@ -518,6 +518,48 @@
     	}
     });
     
+    webApp.controller('restaurantManager_order_Controller', function($scope, $http, $location, $rootScope) {
+    	$scope.orderItems = [];
+    	console.log($scope.orderEndDate);
+    	$scope.addOrderItem = function(){
+    		var singleItem = {
+    				name:$scope.orderItemName
+    		}
+    		$scope.orderItems.push(singleItem);
+    	}
+    	
+    	$scope.publishOrder = function(){
+    		if($scope.orderItems.length != 0){
+    			//ako ima bar jednu stavku kreiramo porudzbinu
+    			
+    			var order = {
+    					restaurantManagerID:$rootScope.loggedUser.id,
+    					endDate:$scope.orderEndDate,
+    					active:true
+    			}
+    			$http.post('/api/orders', order).then(
+    	    			function(response){
+    	    				//Uspesno
+    	    				for(var i=0; i<$scope.orderItems.length; i++){
+    	        				$scope.orderItems[i].orderID = response.data.id;
+    	        				$http.post('/api/orderItems', $scope.orderItems[i]).then(function(response){console.log(response)},function(response){})
+    	        				
+    	        			}
+    	    				console.log(response);
+    	    				$location.path('/restaurantManager/home');
+    	    			},
+    	    			function(response){
+    	    				//Neuspesno
+    	    			}
+    	    		)
+    			for(var i=0; i<$scope.orderItems.length; i++){
+    				$scope.orderItems[i].restaurantManagerID = $rootScope.loggedUser.id;
+    				$scope.orderItems[i].active = true;
+    			}
+    		}
+    	}
+    });
+    
     webApp.controller('userController', function($scope, $http, $location, $rootScope) {
     	
     	$scope.usable = true;

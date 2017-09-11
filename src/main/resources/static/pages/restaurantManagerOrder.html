@@ -1,0 +1,8 @@
+<input type="date" ng-model="orderEndDate">
+<input class = "form-control" type="text" ng-model="orderItemName" style="width:200px">
+<button class="btn btn-primary" ng-click="addOrderItem()" style="width:200px">Dodaj stavku</button>
+<table>
+	<tr><td><span>Stavke:</span></td></tr>
+	<tr ng-repeat="item in orderItems"><td><p><span ng-bind="item.name"></span></p></td></tr>
+</table>
+<button class="btn btn-primary" ng-click="publishOrder()" style="width:200px">Objavi narudzbinu</button>

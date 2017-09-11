@@ -32,19 +32,21 @@ a{
    right:0;
   }
 
-  .glyphicon {
-      margin-bottom: 20px;
-      font-size: 40px;
-  }
+ .glyphicon {
+     margin-bottom: 20px;
+     font-size: 40px;
+ }
 
 .container{
+	height: 300px;
+    width: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 
-  .fill {
+.fill {
     height: 300px;
     width: 300px;
     overflow: hidden;
@@ -72,3 +74,14 @@ a{
 .fill2:hover{
     opacity: 0.5;
 }
+
+.slika{
+    border-radius: 50%;
+    width:200px;
+    height: 200px;
+}
+
+.userRest{
+	color:white;
+}
+

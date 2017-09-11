@@ -1,20 +1,67 @@
-<div  ng-controller = "UserFriendsController">
+<header>
+      <div class="container">
+          <div id="branding">
+              <h1><span class="highlight">Dinner</span> Time</h1>
+          </div>
+          <nav>
+              <ul>
+                  <li ><a href="#/user/home" >Početna</a></li>
+                  <li><a href="#/user/resturants" >Restorani</a></li>
+                  <li><a href="#/user/allReservations" >Rezervacije</a></li>
+                  <li><a href="#/user/friends" >Prijatelji</a></li>
+                  <li><a href="#/user/profile" >Profil</a></li>
+              </ul>
+          </nav>
+      </div>
+  	</header>
+<div  ng-controller = "UserFriendsController" class = "friends">
 
-
-	<div class = "content2">
-	    <button ng-click = "order = 'name' ">Sortiraj po imenu</button>
-	    <button ng-click = "order = 'lastName' ">Sortiraj po prezimenu</button>
-	    <input type="text" style = "color:black" ng-model = "search">
-	    <ul>
-	        <li ng-repeat = "user in userStack | orderBy : order | filter:search">
-	            <h3>{{user}}</h3>
-	            <div class = "ctrl">
-	            <button class = "btn btn-primary">Dodaj</button>
-	            <div class="remove" ng-click = "removeUser(user)">X</div>
-	            </div>
-	        </li>
-	    </ul>
+	<div class = "col-md-4 text-center friendsList">
+		<div class = "content2">
+		<label>Svi korisnici</label><br>
+		    <button ng-click = "order = 'name' ">Sortiraj po imenu</button>
+		    <button ng-click = "order = 'lastName' ">Sortiraj po prezimenu</button>
+		    <input type="text" style = "color:black" ng-model = "search1" placeholder = "pretrazi">
+		    <ul>
+		        <li ng-repeat = "user in korisnici | orderBy : order | filter:search1">
+		            <h3>{{user.firstName}} {{user.lastName}}</h3>
+		            <button class = "btn btn-primary" ng-disabled = "dodat" ng-click = "request(user)">Posalji zahtev</button>
+		        </li>
+		    </ul>
+		</div>
 	</div>
+	
+	<div class = "col-md-4 text-center friendsList">
+		<div class = "content2">
+		<label>Zahtevi za prijateljstvo</label><br>
+		    <button ng-click = "order = 'name' ">Sortiraj po imenu</button>
+		    <button ng-click = "order = 'lastName' ">Sortiraj po prezimenu</button>
+		    <input type="text" style = "color:black" ng-model = "search2" placeholder = "Pretrazi">
+		    <ul>
+		        <li ng-repeat = "user in requests | orderBy : order | filter:search2">
+		            <h3>{{user.firstName}} {{user.lastName}}</h3>
+		            <button class = "btn btn-success" ng-click = "addUser(user)" >Prihvati</button>
+		            <button class = "btn btn-warning" ng-click = "" >Odbij</button>
+		        </li>
+		    </ul>
+		</div>
+	</div>
+	
+	<div class = "col-md-4 text-center friendsList">
+		<div class = "content2">
+		<label>Priajtelji</label><br>
+		    <button ng-click = "order = 'name' ">Sortiraj po imenu</button>
+		    <button ng-click = "order = 'lastName' ">Sortiraj po prezimenu</button>
+		    <input type="text" style = "color:black" ng-model = "search3" placeholder = "Pretrazi">
+		    <ul>
+		        <li ng-repeat = "user in friends | orderBy : order | filter:search3">
+		            <h3>{{user.firstName}} {{user.lastName}}</h3>
+		            <button class = "btn btn-danger" ng-click = "" >Obrisi</button>
+		        </li>
+		    </ul>
+		</div>
+	</div>
+	
 
 	
 </div>

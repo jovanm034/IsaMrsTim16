@@ -1,0 +1,37 @@
+<header>
+      <div class="container">
+          <div id="branding">
+              <h1><span class="highlight">Dinner</span> Time</h1>
+          </div>
+          <nav>
+              <ul>
+                  <li ><a href="#/user/home" >Početna</a></li>
+                  <li><a href="#/user/resturants" >Restorani</a></li>
+                  <li><a href="#/user/allReservations" >Rezervacije</a></li>
+                  <li><a href="#/user/friends" >Prijatelji</a></li>
+                  <li><a href="#/user/profile" >Profil</a></li>
+              </ul>
+          </nav>
+      </div>
+  	</header>
+<div ng-controller = "UserProfileController">
+
+	<div class = "container">
+		<div class = "userInfo">
+			<label>Ime: </label>
+			<p>{{loggedUser.firstName}}</p><br>
+			<label>Prezime: </label>
+			<p>{{loggedUser.lastName}}</p><br>
+			<label>Lozinka: </label>
+			<p>{{loggedUser.password}}</p><br>
+			<div ng-show = "showInput">
+				<input style = "color:black;" type = "text" name = "editName" ng-model = "loggedUser.firstName" value = "{{loggedUser.firstName}}">
+				<input style = "color:black;" type = "text" name = "editLastName" ng-model = "loggedUser.lastName" value = "{{loggedUser.LastName}}">
+				<input style = "color:black;" type = "text" name = "editPassword" ng-model = "loggedUser.password" value = "{{loggedUser.password}}">
+			</div><br>
+			<button class = "btn btn-warning" ng-show = "editEnabled" ng-click = "editUser()">Izmeni</button>
+			<button class = "btn btn-success" ng-show = "saveEnabled" ng-click = "saveUser()">Sacuvaj</button><br>
+		</div>
+		<a href = "#/logout">Odjava</a>
+	</div>
+</div>
