@@ -809,6 +809,7 @@
 
  	      var type = this;
  	      type.meals = [];
+ 	      type.drinks = [];
  	      // Call the form data
  	      $http.get('json/form-meals.json').success(function(data) {
  	        type.meals = data;
