@@ -749,9 +749,7 @@
     	
     	$scope.onReserveClick = function(resturant){
     		$rootScope.reserveResturant = resturant;
-    		$location.path('/user/reserveRest');
-    		$window.localStorage.setItem("resturantName", $scope.resturantName);
-    		
+    		$location.path('/user/reserveRest');    		
     	}
     	
     	$scope.allReservations = function(){
@@ -786,9 +784,15 @@
  	webApp.controller('UserReservations', function($scope, $http, $location, $rootScope) {
 	 	
 	 $http.get('/api/reservations').success(function(data) {
+		 
          $scope.reservations = data.content; // get data from json
          
-           
+         angular.forEach($scope.reservation, function(value, key){
+         	if(value.userEmail != $rootScope.loggedUser.email){
+         		var index = $scope.korisnici.indexOf(value);
+         		$scope.korisnici.splice(index,1);
+         	}             
+          });
      })
     	
     	
@@ -806,6 +810,7 @@
  	    function($http, $scope, $window) {
  		 
  		 console.log("Usao u kontroler");
+ 		 console.log($window.localStorage.getItem("resturantName"));
 
  	      var type = this;
  	      type.meals = [];
@@ -839,6 +844,7 @@
  	                 // display success message
  	                 $scope.$parent.message = true;
  	                 $window.localStorage.clear();
+ 	                 $window.location.reload();
  	             }			
  	         }).error(function (data, status) {
  	             $window.alert("Sorry, there was a problem!");
@@ -907,7 +913,7 @@
  	        $scope.booking.userEmail = $window.localStorage.getItem("userEmail");
  	        $scope.booking.date = $scope.date;
  	        $scope.booking.time =$scope.sati + ":" + $scope.minuti;
- 	        $scope.booking.resturantName =  $window.localStorage.getItem("resturantName");
+ 	        $scope.booking.resturantName =  "Ime restorana";
  	        
  	      };
  	 

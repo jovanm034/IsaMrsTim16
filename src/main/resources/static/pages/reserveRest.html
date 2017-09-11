@@ -102,7 +102,7 @@
                     <em>(Obrok ce biti spreman na vreme)</em>
                   </label>
                   <ul>
-                    <li ng-model="booking.mealType" ng-repeat="meal in form.meals" ng-click="form.selectMeal(meal);" ng-class="{active:meal.active}" class="mealType">{{meal.name}} - {{meal.description}}                                                                                                                                     <span>{{meal.price | currency}}</span>
+                    <li ng-model="booking.mealType" ng-repeat="meal in form.meals" ng-click="form.selectMeal(meal);" ng-class="{active:meal.active}" class="mealType">{{meal.name}} - {{meal.description}}           <span>{{meal.price | currency}}</span>
                     </li>
                   </ul>
                 </div>
@@ -114,7 +114,7 @@
                     <em>(Pice ce vas cekati na stolu)</em>
                   </label>
                   <ul>
-                    <li ng-model="booking.drinkType" ng-repeat="drink in form.drinks" ng-click="form.selectDrink(drink);" ng-class="{active:drink.active}" class="mealType">{{drink.name}} - {{drink.description}}                                                                                                                                     <span>{{drink.price | currency}}</span>
+                    <li ng-model="booking.drinkType" ng-repeat="drink in form.drinks" ng-click="form.selectDrink(drink);" ng-class="{active:drink.active}" class="mealType">{{drink.name}} - {{drink.description}}     <span>{{drink.price | currency}}</span>
                     </li>
                   </ul>
                 </div>
