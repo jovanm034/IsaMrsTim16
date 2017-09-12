@@ -1,3 +1,28 @@
-<select name="" id="repeatSelect" class = "form-control" ng-model="providerOrders.model">
-	<option ng-repeat="option in providerOrders.availableOptions" value="{{option.id}}" style="color:black;">{{option.id}}</option>
+<header>
+   <div class="container">
+       <div id="branding">
+           <h1><span class="highlight">Dinner</span> Time</h1>
+       </div>
+       <nav>
+           <ul>
+               <li><a href="#/provider/update">Izmeni podatke</a></li>
+               <li><a href="#/provider/offers">Ponude</a></li>
+               <li><a href="#/provider/orders" >Porudzbine</a></li>
+               <li><a href="#/" >Odjavi se</a></li>
+           </ul>
+       </nav>
+   </div>
+</header>
+<select name="" id="repeatSelect" class = "form-control" data-ng-options="o.id for o in providerOrders.availableOptions"" data-ng-model="providerOrders.selectedOption">
+	<option ng-repeat="option in providerOrders.availableOptions" value="{{option.id}}" ng-selected="option == selected.option" style="color:black;">{{option.id}}</option>
 </select>
+<button class="btn btn-primary" ng-click="providerOrderInfo()" style="width:200px">Pregledaj porudzbinu</button>
+<br>
+<br>
+<table>
+	<tr ng-repeat="item in providerOrderItems"><td><p><span ng-bind="item.name"></span></p></td></tr>
+</table>
+<br>
+<br>
+<input class = "form-control" type="text" ng-model="providerOrderOfferValue" style="width:200px">
+<button class="btn btn-primary" ng-click="providerOrderOffer()" style="width:200px">Objavi ponudu</button>

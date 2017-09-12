@@ -467,6 +467,43 @@
     });
     
     webApp.controller('provider_orders_Controller', function($scope, $http, $location, $rootScope){
+    	$scope.providerOrderItems = []
+    	$http.get('api/orders').then(
+			function(response){
+				$scope.providerOrders = {
+					availableOptions: response.data.content,
+					selectedOption: {}
+				}
+			},
+			function(response){
+				//Nikada nije neuspesno
+			}
+		)
+		$scope.providerOrderInfo = function(){
+    		console.log($scope.providerOrders.selectedOption);
+    		$scope.providerOrderItems = [];
+			if($scope.providerOrders.selectedOption.restaurantManagerID != undefined){
+				$http.get('api/orderItems/').then(
+						function(response){
+							var orderItems = response.data.content;
+							for(i = 0; i<orderItems.length; i++){
+								if(orderItems[i].orderID == $scope.providerOrders.selectedOption.id){
+									$scope.providerOrderItems.push(orderItems[i]);
+								}
+							}
+						},
+						function(response){
+							//Nikada nije neuspesno
+						}
+				
+				)
+			}
+    	};
+    	$scope.providerOrderOffer = function(){
+    		if($scope.providerOrders.selectedOption.name != undefined){
+				
+			}
+    	};
     	
     });
     
