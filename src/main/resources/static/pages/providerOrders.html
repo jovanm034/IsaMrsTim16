@@ -13,7 +13,7 @@
        </nav>
    </div>
 </header>
-<select name="" id="repeatSelect" class = "form-control" data-ng-options="o.id for o in providerOrders.availableOptions"" data-ng-model="providerOrders.selectedOption">
+<select name="" id="repeatSelect" class = "form-control" data-ng-options="o.id for o in providerOrders.availableOptions" data-ng-model="providerOrders.selectedOption">
 	<option ng-repeat="option in providerOrders.availableOptions" value="{{option.id}}" ng-selected="option == selected.option" style="color:black;">{{option.id}}</option>
 </select>
 <button class="btn btn-primary" ng-click="providerOrderInfo()" style="width:200px">Pregledaj porudzbinu</button>

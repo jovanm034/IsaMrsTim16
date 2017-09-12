@@ -1,0 +1,18 @@
+2017-09-12 07:15:39 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "SYSTEM_MANAGER" not found; SQL statement:
+insert into system_manager (id, email, firstname, lastname, master, password) values (null, ?, ?, ?, ?, ?) [42102-194]
+2017-09-12 07:15:39 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "SYSTEM_MANAGER" not found; SQL statement:
+insert into system_manager (id, email, firstname, lastname, master, password) values (null, ?, ?, ?, ?, ?) [42102-194]
+2017-09-12 07:16:28 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "SYSTEM_MANAGER" not found; SQL statement:
+insert into system_manager (id, email, firstname, lastname, master, password) values (null, ?, ?, ?, ?, ?) [42102-194]
+2017-09-12 07:16:28 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "SYSTEM_MANAGER" not found; SQL statement:
+insert into system_manager (id, email, firstname, lastname, master, password) values (null, ?, ?, ?, ?, ?) [42102-194]
+2017-09-12 07:17:36 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "SYSTEM_MANAGER" not found; SQL statement:
+insert into system_manager (id, email, firstname, lastname, master, password) values (null, ?, ?, ?, ?, ?) [42102-194]
+2017-09-12 07:17:36 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "SYSTEM_MANAGER" not found; SQL statement:
+insert into system_manager (id, email, firstname, lastname, master, password) values (null, ?, ?, ?, ?, ?) [42102-194]
